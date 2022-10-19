@@ -94,6 +94,10 @@ class Core extends Application
      */
     public function evalPlugins($event, array $params)
     {
+        if (is_null($event)) {
+            return;
+        }
+
         extract($params);
 
         foreach ($event['plugins'] as $plugin) {

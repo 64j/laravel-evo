@@ -11,7 +11,9 @@ use Illuminate\Support\Facades\Cache;
 
 class OnLoadWebPageCache
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
+    use Dispatchable;
+    use InteractsWithSockets;
+    use SerializesModels;
 
     public function __construct()
     {

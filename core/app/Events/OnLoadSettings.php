@@ -11,11 +11,13 @@ use Illuminate\Support\Facades\Cache;
 
 class OnLoadSettings
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
+    use Dispatchable;
+    use InteractsWithSockets;
+    use SerializesModels;
 
     public function __construct()
     {
         $eventName = trim(str_replace(__NAMESPACE__, '', __CLASS__), '\\');
-        app()->evalPlugins(Cache::get('evo.events')[$eventName] ?? '', [...func_get_args()]);
+        app()->evalPlugins(Cache::get('evo.events')[$eventName] ?? null, [...func_get_args()]);
     }
 }

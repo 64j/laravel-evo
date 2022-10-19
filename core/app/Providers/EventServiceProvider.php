@@ -22,21 +22,23 @@ class EventServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $events = Cache::rememberForever(
-            'evo.events',
-            fn() => SystemEventname::query()
-                ->with('plugins')
-                ->get()
-                ->keyBy('name')
-                ->toArray()
-        );
+        if (!$this->app->runningInConsole()) {
+            Cache::rememberForever(
+                'evo.events',
+                function () {
+                    $events = SystemEventname::query()
+                        ->with('plugins')
+                        ->get();
 
-        foreach ($events as $event) {
-            foreach ($event['plugins'] as $plugin) {
-                if (empty($plugin['disabled'])) {
-                    $this->listen[$event['name']][] = $plugin['name'];
+                    $events->map(
+                        fn($event) => $event->plugins->map(
+                            fn($plugin) => $this->listen[$event->name][] = $plugin->name
+                        )
+                    );
+
+                    return $events->keyBy('name')->toArray();
                 }
-            }
+            );
         }
     }
 }
