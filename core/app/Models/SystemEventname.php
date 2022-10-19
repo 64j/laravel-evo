@@ -49,7 +49,7 @@ class SystemEventname extends Model
     {
         return $this->belongsToMany(
             SitePlugin::class,
-            (new SitePluginEvent)->getTable(),
+            (new SitePluginEvent())->getTable(),
             'evtid',
             'pluginid'
         )->withPivot('priority');

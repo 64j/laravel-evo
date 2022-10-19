@@ -8,8 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class SiteTemplate extends Model
 {
-    const CREATED_AT = 'createdon';
-    const UPDATED_AT = 'editedon';
+    public const CREATED_AT = 'createdon';
+    public const UPDATED_AT = 'editedon';
 
     /**
      * @var string
