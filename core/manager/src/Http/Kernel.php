@@ -290,7 +290,10 @@ class Kernel extends HttpKernel
      */
     public function view(string $name, array $params = []): ContractView
     {
-        return View::addNamespace('manager', [base_path('/manager/resources/views')])
+        return View::addNamespace(
+            $this->app->getNamespace(),
+            [$this->app->viewPath()]
+        )
             ->make(
                 $this->getViewName($name),
                 $params
@@ -304,6 +307,6 @@ class Kernel extends HttpKernel
      */
     public function getViewName($name): string
     {
-        return $this->namespace . '::' . $name;
+        return $this->app->getNamespace() . '::' . $name;
     }
 }

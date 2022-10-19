@@ -40,6 +40,11 @@ use Manager\Providers\RouteServiceProvider;
 class Core extends Application
 {
     /**
+     * @var string
+     */
+    protected $namespace = 'manager';
+
+    /**
      * @var array
      */
     protected array $providers = [
@@ -80,8 +85,6 @@ class Core extends Application
     ];
 
     /**
-     * Register all of the configured providers.
-     *
      * @return void
      */
     public function registerConfiguredProviders()
@@ -98,15 +101,45 @@ class Core extends Application
     }
 
     /**
-     * Get the path to the resources' directory.
-     *
      * @param string $path
      *
      * @return string
      */
     public function resourcePath($path = ''): string
     {
-        return $this->basePath . DIRECTORY_SEPARATOR . 'manager' . DIRECTORY_SEPARATOR .
-            'resources' . ($path ? DIRECTORY_SEPARATOR . $path : $path);
+        return $this->basePath(
+            $this->namespace . DIRECTORY_SEPARATOR . 'resources' . ($path ? DIRECTORY_SEPARATOR . $path : $path)
+        );
+    }
+
+    /**
+     * @return string
+     */
+    public function storagePath(): string
+    {
+        return $this->storagePath
+            ?: $this->basePath($this->namespace . DIRECTORY_SEPARATOR . 'storage');
+    }
+
+    /**
+     * @param string $path
+     *
+     * @return string
+     */
+    public function viewPath($path = ''): string
+    {
+        return $this->basePath(
+            $this->namespace . DIRECTORY_SEPARATOR . 'views' . ($path ? DIRECTORY_SEPARATOR . $path : $path)
+        );
+    }
+
+    /**
+     * @return string
+     */
+    public function langPath(): string
+    {
+        return $this->basePath(
+            $this->getNamespace() . DIRECTORY_SEPARATOR . 'lang'
+        );
     }
 }
