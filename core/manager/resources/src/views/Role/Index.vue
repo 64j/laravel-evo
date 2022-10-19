@@ -73,7 +73,7 @@ export default {
   },
   computed: {
     title () {
-      return (this.data.name ? this.data.name : i18n.global.t('role_title')) + (this.data.id ? ' <small>(' + this.data.id + ')</small>' : '')
+      return (this.data.name ? this.data.name : this.$store.state['Settings'].lang('role_title')) + (this.data.id ? ' <small>(' + this.data.id + ')</small>' : '')
     }
   },
   mounted () {
@@ -118,7 +118,7 @@ export default {
       })
     },
     delete() {
-      if (confirm(i18n.global.t('confirm_delete_role'))) {
+      if (confirm(this.$store.state['Settings'].lang('confirm_delete_role'))) {
         http.post(this.controller + '@delete', { id: this.data.id }).then(result => {
           if (result) {
             this.action('cancel')

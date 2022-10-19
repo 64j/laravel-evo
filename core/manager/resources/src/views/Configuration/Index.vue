@@ -152,13 +152,13 @@ export default {
   },
   computed: {
     title () {
-      return i18n.global.t('settings_title')
+      return this.$store.state['Settings'].lang('settings_title')
     }
   },
   mounted () {
     this.$emit('titleTab', {
       icon: this.icon,
-      title: i18n.global.t('settings_title')
+      title: this.$store.state['Settings'].lang('settings_title')
     })
     this.read()
   },

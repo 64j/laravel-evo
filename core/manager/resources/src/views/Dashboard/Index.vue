@@ -9,7 +9,7 @@ export default {
   name: 'DashboardIndex',
   computed: {
     title () {
-      return i18n.global.t('home')
+      return this.$store.state['Settings'].lang('home')
     }
   }
 }

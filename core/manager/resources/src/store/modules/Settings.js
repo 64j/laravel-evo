@@ -4,7 +4,11 @@ const state = {
   user: {},
   config: {},
   categories: {},
-  permissions: {}
+  permissions: {},
+  lexicon: {},
+  lang(key, d) {
+    return this.lexicon[key] || d
+  }
 }
 
 const mutations = {

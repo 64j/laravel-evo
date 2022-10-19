@@ -80,19 +80,19 @@ export default {
     },
     title (node) {
       let title = ''
-      title += i18n.global.t('pagetitle') + ': ' + node.pagetitle
-      title += '\n' + i18n.global.t('id') + ': ' + node.id
-      title += '\n' + i18n.global.t('resource_opt_menu_title') + ': ' + node.menutitle
-      title += '\n' + i18n.global.t('resource_opt_menu_index') + ': ' + node.menuindex
-      title += '\n' + i18n.global.t('alias') + ': ' + (node.alias || '-')
-      title += '\n' + i18n.global.t('template') + ': ' + node.templatename
-      title += '\n' + i18n.global.t('publish_date') + ': ' + (node.pub_date ? (new Date(node.pub_date * 1000)).toLocaleString() : '')
-      title += '\n' + i18n.global.t('unpublish_date') + ': ' + (node.unpub_date ? (new Date(node.unpub_date * 1000)).toLocaleString() : '')
-      title += '\n' + i18n.global.t('page_data_web_access') + ': ' + (node.privateweb ? i18n.global.t('private') : i18n.global.t('public'))
-      title += '\n' + i18n.global.t('page_data_mgr_access') + ': ' + (node.privatemgr ? i18n.global.t('private') : i18n.global.t('public'))
-      title += '\n' + i18n.global.t('resource_opt_richtext') + ': ' + (node.richtext ? i18n.global.t('yes') : i18n.global.t('no'))
-      title += '\n' + i18n.global.t('page_data_searchable') + ': ' + (node.searchable ? i18n.global.t('yes') : i18n.global.t('no'))
-      title += '\n' + i18n.global.t('page_data_cacheable') + ': ' + (node.searchable ? i18n.global.t('yes') : i18n.global.t('no'))
+      title += this.$store.state['Settings'].lang('pagetitle') + ': ' + node.pagetitle
+      title += '\n' + this.$store.state['Settings'].lang('id') + ': ' + node.id
+      title += '\n' + this.$store.state['Settings'].lang('resource_opt_menu_title') + ': ' + node.menutitle
+      title += '\n' + this.$store.state['Settings'].lang('resource_opt_menu_index') + ': ' + node.menuindex
+      title += '\n' + this.$store.state['Settings'].lang('alias') + ': ' + (node.alias || '-')
+      title += '\n' + this.$store.state['Settings'].lang('template') + ': ' + node.templatename
+      title += '\n' + this.$store.state['Settings'].lang('publish_date') + ': ' + (node.pub_date ? (new Date(node.pub_date * 1000)).toLocaleString() : '')
+      title += '\n' + this.$store.state['Settings'].lang('unpublish_date') + ': ' + (node.unpub_date ? (new Date(node.unpub_date * 1000)).toLocaleString() : '')
+      title += '\n' + this.$store.state['Settings'].lang('page_data_web_access') + ': ' + (node.privateweb ? this.$store.state['Settings'].lang('private') : this.$store.state['Settings'].lang('public'))
+      title += '\n' + this.$store.state['Settings'].lang('page_data_mgr_access') + ': ' + (node.privatemgr ? this.$store.state['Settings'].lang('private') : this.$store.state['Settings'].lang('public'))
+      title += '\n' + this.$store.state['Settings'].lang('resource_opt_richtext') + ': ' + (node.richtext ? this.$store.state['Settings'].lang('yes') : this.$store.state['Settings'].lang('no'))
+      title += '\n' + this.$store.state['Settings'].lang('page_data_searchable') + ': ' + (node.searchable ? this.$store.state['Settings'].lang('yes') : this.$store.state['Settings'].lang('no'))
+      title += '\n' + this.$store.state['Settings'].lang('page_data_cacheable') + ': ' + (node.searchable ? this.$store.state['Settings'].lang('yes') : this.$store.state['Settings'].lang('no'))
 
       return title
     },

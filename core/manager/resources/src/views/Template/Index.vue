@@ -173,7 +173,7 @@ export default {
   },
   computed: {
     title () {
-      return (this.data.templatename ? this.data.templatename : i18n.global.t('new_template')) + (this.data.id ? ' <small>(' + this.data.id + ')</small>' : '')
+      return (this.data.templatename ? this.data.templatename : this.$store.state['Settings'].lang('new_template')) + (this.data.id ? ' <small>(' + this.data.id + ')</small>' : '')
     }
   },
   mounted () {
@@ -234,7 +234,7 @@ export default {
       })
     },
     delete () {
-      if (confirm(i18n.global.t('confirm_delete_template'))) {
+      if (confirm(this.$store.state['Settings'].lang('confirm_delete_template'))) {
         http.post(this.controller + '@delete', this.data).then(result => {
           if (result) {
             this.action('cancel')

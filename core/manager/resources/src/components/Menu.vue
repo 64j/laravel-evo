@@ -289,6 +289,9 @@ export default {
     })
   },
   methods: {
+    $t (a) {
+      return this.$store.state['Settings'].lang(a)
+    },
     click (event) {
       if (event.target.classList.contains('link-home')) {
         this.$el.parentElement.classList.remove('active')

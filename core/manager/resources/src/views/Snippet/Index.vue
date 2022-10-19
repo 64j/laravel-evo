@@ -173,7 +173,7 @@ export default {
   },
   computed: {
     title () {
-      return (this.data.name ? this.data.name : i18n.global.t('new_snippet')) + (this.data.id ? ' <small>(' + this.data.id + ')</small>' : '')
+      return (this.data.name ? this.data.name : this.$store.state['Settings'].lang('new_snippet')) + (this.data.id ? ' <small>(' + this.data.id + ')</small>' : '')
     }
   },
   mounted () {
@@ -218,7 +218,7 @@ export default {
       })
     },
     delete() {
-      if (confirm(i18n.global.t('confirm_delete_snippet'))) {
+      if (confirm(this.$store.state['Settings'].lang('confirm_delete_snippet'))) {
         http.post(this.controller + '@delete', { id: this.data.id }).then(result => {
           if (result) {
             this.action('cancel')

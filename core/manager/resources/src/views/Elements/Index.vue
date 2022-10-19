@@ -26,42 +26,42 @@ export default {
       tabs: [
         {
           id: 'Templates',
-          title: i18n.global.t('templates'),
+          title: this.$store.state['Settings'].lang('templates'),
           icon: 'fa fa-newspaper',
           component: () => import('@/views/Template/List'),
           hidden: !this.$store.state.Settings.permissions['edit_template']
         },
         {
           id: 'Variables',
-          title: i18n.global.t('tmplvars'),
+          title: this.$store.state['Settings'].lang('tmplvars'),
           icon: 'fa fa-list-alt',
           component: () => import('@/views/Tv/List'),
           hidden: !this.$store.state.Settings.permissions['edit_template'] || !this.$store.state.Settings.permissions['edit_snippet'] || !this.$store.state.Settings.permissions['edit_chunk'] || !this.$store.state.Settings.permissions['edit_plugin']
         },
         {
           id: 'Chunks',
-          title: i18n.global.t('htmlsnippets'),
+          title: this.$store.state['Settings'].lang('htmlsnippets'),
           icon: 'fa fa-th-large',
           component: () => import('@/views/Chunk/List'),
           hidden: !this.$store.state.Settings.permissions['edit_chunk']
         },
         {
           id: 'Snippets',
-          title: i18n.global.t('snippets'),
+          title: this.$store.state['Settings'].lang('snippets'),
           icon: 'fa fa-code',
           component: () => import('@/views/Snippet/List'),
           hidden: !this.$store.state.Settings.permissions['edit_snippet']
         },
         {
           id: 'Plugins',
-          title: i18n.global.t('plugins'),
+          title: this.$store.state['Settings'].lang('plugins'),
           icon: 'fa fa-plug',
           component: () => import('@/views/Plugin/List'),
           hidden: !this.$store.state.Settings.permissions['edit_plugin']
         },
         {
           id: 'Modules',
-          title: i18n.global.t('modules'),
+          title: this.$store.state['Settings'].lang('modules'),
           icon: 'fa fa-cubes',
           component: () => import('@/views/Module/List'),
           hidden: !this.$store.state.Settings.permissions['edit_module']
@@ -71,7 +71,7 @@ export default {
   },
   computed: {
     title () {
-      return i18n.global.t('elements')
+      return this.$store.state['Settings'].lang('elements')
     }
   },
   mounted () {

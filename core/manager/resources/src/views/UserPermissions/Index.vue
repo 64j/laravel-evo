@@ -64,7 +64,7 @@ export default {
   },
   computed: {
     title () {
-      return i18n.global.t('mgr_access_permissions')
+      return this.$store.state['Settings'].lang('mgr_access_permissions')
     }
   },
   mounted () {

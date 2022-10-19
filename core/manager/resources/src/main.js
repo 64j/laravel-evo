@@ -6,13 +6,8 @@ import Notifications from '@kyvg/vue3-notification'
 import '@fortawesome/fontawesome-free/css/all.css'
 
 const app = createApp(App)
-const i18n = {}
-const $t = {}
 
-store.dispatch('Settings/get').then(settings => {
-  if (settings.user.role) {
-    i18n.global.locale.value = settings.config['lang_code']
-  }
+store.dispatch('Settings/get').then(() => {
   app.mixin({
     methods: {
       hasPermissions (permissions) {
@@ -27,7 +22,10 @@ store.dispatch('Settings/get').then(settings => {
       },
       user (key) {
         return this.$store.state['Settings'].user[key] || null
-      }
+      },
+      // lang (key, def) {
+      //   return settings.lexicon[key] || def
+      // }
     },
     // unmounted () {
     //   console.log('unMounted: ' + this.$.type.name)

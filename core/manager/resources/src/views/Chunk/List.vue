@@ -27,23 +27,23 @@ export default {
       actions: {
         copy: {
           icon: 'far fa-clone fa-fw',
-          title: i18n.global.t('duplicate')
+          title: this.$store.state['Settings'].lang('duplicate')
         },
         disabled: {
           values: {
             0: {
               icon: 'far fa-times-circle text-danger',
-              title: i18n.global.t('disabled')
+              title: this.$store.state['Settings'].lang('disabled')
             },
             1: {
               icon: 'far fa-check-circle text-success',
-              title: i18n.global.t('enabled')
+              title: this.$store.state['Settings'].lang('enabled')
             }
           }
         },
         delete: {
           icon: 'fa fa-trash fa-fw text-danger',
-          title: i18n.global.t('delete')
+          title: this.$store.state['Settings'].lang('delete')
         }
       }
     }
@@ -63,7 +63,7 @@ export default {
           break
 
         case 'delete':
-          if (confirm(i18n.global.t('confirm_delete_htmlsnippet'))) {
+          if (confirm(this.$store.state['Settings'].lang('confirm_delete_htmlsnippet'))) {
             http.post(this.controller + '@delete', item).then(result => {
               if (result) {
                 delete category.items[item.id]

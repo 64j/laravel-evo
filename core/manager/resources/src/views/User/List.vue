@@ -39,38 +39,38 @@ export default {
       meta: null,
       columns: {
         icon: {
-          title: i18n.global.t('icon'),
+          title: this.$store.state['Settings'].lang('icon'),
           value: '<i class="fa fa-user-circle"/>',
           link: true
         },
         username: {
-          title: i18n.global.t('name'),
+          title: this.$store.state['Settings'].lang('name'),
           link: true
         },
         fullname: {
-          title: i18n.global.t('user_full_name')
+          title: this.$store.state['Settings'].lang('user_full_name')
         },
         role: {
-          title: i18n.global.t('role')
+          title: this.$store.state['Settings'].lang('role')
         },
         email: {
-          title: i18n.global.t('email')
+          title: this.$store.state['Settings'].lang('email')
         },
         lastlogin: {
-          title: i18n.global.t('user_prevlogin')
+          title: this.$store.state['Settings'].lang('user_prevlogin')
         },
         logincount: {
-          title: i18n.global.t('user_logincount')
+          title: this.$store.state['Settings'].lang('user_logincount')
         },
         blocked: {
-          title: i18n.global.t('user_block'),
+          title: this.$store.state['Settings'].lang('user_block'),
           value: {
-            0: i18n.global.t('no'),
-            1: i18n.global.t('yes')
+            0: this.$store.state['Settings'].lang('no'),
+            1: this.$store.state['Settings'].lang('yes')
           }
         },
         delete: {
-          title: i18n.global.t('delete'),
+          title: this.$store.state['Settings'].lang('delete'),
           value: '<i class="fa fa-trash-alt remove text-danger"/>'
         }
       },
@@ -79,7 +79,7 @@ export default {
   },
   computed: {
     title () {
-      return i18n.global.t('user_management_title')
+      return this.$store.state['Settings'].lang('user_management_title')
     }
   },
   mounted () {

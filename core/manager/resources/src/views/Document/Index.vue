@@ -258,7 +258,7 @@ export default {
   },
   computed: {
     title () {
-      return (this.data?.pagetitle || i18n.global.t('new_resource')) + (this.data?.id ? ' <small>(' + this.data.id + ')</small>' : '')
+      return (this.data?.pagetitle || this.$store.state['Settings'].lang('new_resource')) + (this.data?.id ? ' <small>(' + this.data.id + ')</small>' : '')
     }
   },
   mounted () {
@@ -320,7 +320,7 @@ export default {
       })
     },
     delete () {
-      if (confirm(i18n.global.t('confirm_delete_resource'))) {
+      if (confirm(this.$store.state['Settings'].lang('confirm_delete_resource'))) {
         http.post(this.controller + '@delete', this.data).then(result => {
           if (result) {
             this.action('cancel')

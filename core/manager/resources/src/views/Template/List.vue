@@ -49,7 +49,7 @@ export default {
           break
 
         case 'delete':
-          if (confirm(i18n.global.t('confirm_delete_template'))) {
+          if (confirm(this.$store.state['Settings'].lang('confirm_delete_template'))) {
             http.post(this.controller + '@delete', item).then(result => {
               if (result) {
                 delete category.items[item.id]
