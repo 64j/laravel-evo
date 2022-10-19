@@ -135,7 +135,7 @@ class Core extends Application
     /**
      * check if site is offline
      *
-     * @return boolean
+     * @return bool
      */
     public function checkSiteStatus(): bool
     {
@@ -259,13 +259,10 @@ class Core extends Application
         $cacheKey = $this->getSystemCacheKey();
         if (!empty($cacheKey)) {
             $hash = $cacheKey;
-        } else {
-            if (!empty($_GET)) {
-                // Sort GET parameters so that the order of parameters on the HTTP request don't affect the generated cache ID.
-                $params = $_GET;
-                ksort($params);
-                $hash .= '_' . md5(http_build_query($params));
-            }
+        } elseif (!empty($_GET)) {
+            $params = $_GET;
+            ksort($params);
+            $hash .= '_' . md5(http_build_query($params));
         }
 
         $evtOut = OnMakePageCacheKey::dispatch(...[&$hash, $id, $params]);
