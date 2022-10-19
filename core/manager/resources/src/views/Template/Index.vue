@@ -5,13 +5,13 @@
 
     <form name="mutate" v-show="loading">
 
-      <TitleView :title="title" icon="fa fa-code" :message="$t('template_msg')"/>
+      <TitleView :title="title" icon="fa fa-code" :message="lang('template_msg')"/>
 
       <Tabs
         id="template"
         :tabs="[
-          { id: 'Template', title: $t('settings_general') },
-          { id: 'Tvs', title: $t('template_assignedtv_tab') },
+          { id: 'Template', title: lang('settings_general') },
+          { id: 'Tvs', title: lang('template_assignedtv_tab') },
         ]">
         <template #Template>
           <div class="container-fluid container-body pt-3">
@@ -19,13 +19,13 @@
 
               <div class="row form-row mb-1">
                 <label class="col-md-3 col-lg-2">
-                  {{ $t('template_name') }}
-                  <small v-if="data.id === $store.state.Settings.config['default_template']" class="text-danger d-block">{{ $t('defaulttemplate_title') }}</small>
+                  {{ lang('template_name') }}
+                  <small v-if="data.id === $store.state.Settings.config['default_template']" class="text-danger d-block">{{ lang('defaulttemplate_title') }}</small>
                 </label>
                 <div class="col-md-9 col-lg-10">
                   <div class="form-control-name clearfix">
                     <input v-model="data.templatename" type="text" maxlength="100" class="form-control form-control-lg" onchange="documentDirty=true;">
-                    <label v-if="$store.state.Settings.permissions['save_role']" :title="$t('lock_snippet_msg')">
+                    <label v-if="$store.state.Settings.permissions['save_role']" :title="lang('lock_snippet_msg')">
                       <input v-model="data.locked" type="checkbox" :false-value="0" :true-value="1"/>
                       <i class="fa fa-lock" :class="[data.locked ? 'text-danger' : 'text-muted']"></i>
                     </label>
@@ -35,14 +35,14 @@
               </div>
 
               <div class="row form-row mb-1">
-                <label class="col-md-3 col-lg-2">{{ $t('template_desc') }}</label>
+                <label class="col-md-3 col-lg-2">{{ lang('template_desc') }}</label>
                 <div class="col-md-9 col-lg-10">
                   <input v-model="data.description" type="text" maxlength="255" class="form-control" onchange="documentDirty=true;">
                 </div>
               </div>
 
               <div class="row form-row mb-1">
-                <label class="col-md-3 col-lg-2">{{ $t('existing_category') }}</label>
+                <label class="col-md-3 col-lg-2">{{ lang('existing_category') }}</label>
                 <div class="col-md-9 col-lg-10">
                   <select v-model="data.category" class="form-select" onchange="documentDirty=true;">
                     <option v-for="category in $store.state.Settings.categories" :key="category.id" :value="category.id">
@@ -53,7 +53,7 @@
               </div>
 
               <div class="row form-row mb-1">
-                <label class="col-md-3 col-lg-2">{{ $t('new_category') }}</label>
+                <label class="col-md-3 col-lg-2">{{ lang('new_category') }}</label>
                 <div class="col-md-9 col-lg-10">
                   <input v-model="data.newcategory" type="text" maxlength="45" class="form-control" onchange="documentDirty=true;">
                 </div>
@@ -61,14 +61,14 @@
 
               <div class="form-check mb-1" v-if="$store.state.Settings.permissions['save_role']">
                 <input v-model="data.selectable" type="checkbox" class="form-check-input" id="selectable" :false-value="0" :true-value="1">
-                <label class="form-check-label" for="selectable">{{ $t('template_selectable') }}</label>
+                <label class="form-check-label" for="selectable">{{ lang('template_selectable') }}</label>
               </div>
 
             </div>
 
             <!-- HTML text editor start -->
             <div class="navbar-editor mt-3 mb-1">
-              <span>{{ $t('template_code') }}</span>
+              <span>{{ lang('template_code') }}</span>
             </div>
           </div>
 
@@ -80,7 +80,7 @@
         <template #Tvs>
           <div class="container-fluid container-body pt-3">
             <div class="form-group">
-              <p>{{ $t('template_tv_msg') }}</p>
+              <p>{{ lang('template_tv_msg') }}</p>
 
               <div class="row">
                 <template v-if="Object.values(meta?.tvs?.selected || {}).length">
@@ -97,7 +97,7 @@
                   />
                 </template>
 
-                <p v-else class="text-danger">{{ $t('template_no_tv') }}</p>
+                <p v-else class="text-danger">{{ lang('template_no_tv') }}</p>
               </div>
 
               <!--              <ul v-if="Object.values(meta?.tvs?.selected || {}).length" class="list-unstyled">-->
@@ -106,7 +106,7 @@
               <!--                    <input type="checkbox" v-model="tvs" :id="`tv`+tv.id" :value="tv.id" class="form-check-input">-->
               <!--                    <label :for="`tv`+tv.id" class="form-check-label">-->
               <!--                      {{ tv.name }} <small>({{ tv.id }})</small> - {{ tv.caption }}-->
-              <!--                      <a href="#">{{ $t('edit') }}</a>-->
+              <!--                      <a href="#">{{ lang('edit') }}</a>-->
               <!--                    </label>-->
               <!--                  </li>-->
               <!--                </template>-->
@@ -115,7 +115,7 @@
               <div class="row">
                 <template v-if="Object.values(meta?.tvs?.unselected || {}).length">
                   <!--                  <hr class="bg-secondary">-->
-                  <p class="m-0">{{ $t('template_notassigned_tv') }}</p>
+                  <p class="m-0">{{ lang('template_notassigned_tv') }}</p>
 
                   <Panel
                     :data="meta.tvs.unselected"

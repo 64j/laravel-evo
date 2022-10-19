@@ -5,8 +5,8 @@
     :search-input="true"
     link-name="ModuleIndex"
     link-icon="fa fa-cube"
-    :txt-new="$t('new_module')"
-    :txt-help="$t('module_management_msg')"
+    :txt-new="lang('new_module')"
+    :txt-help="lang('module_management_msg')"
     @action="action"
   />
 </template>

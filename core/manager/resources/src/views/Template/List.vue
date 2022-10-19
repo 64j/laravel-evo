@@ -5,8 +5,8 @@
     :search-input="true"
     link-name="TemplateIndex"
     link-icon="fa fa-newspaper"
-    :txt-new="$t('new_template')"
-    :txt-help="$t('template_management_msg')"
+    :txt-new="lang('new_template')"
+    :txt-help="lang('template_management_msg')"
     @action="action"
   />
 </template>

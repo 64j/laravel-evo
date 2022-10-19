@@ -5,15 +5,15 @@
 
     <form name="mutate" v-show="loading">
 
-      <TitleView :title="title" icon="fa fa-code" :message="$t('snippet_msg')"/>
+      <TitleView :title="title" icon="fa fa-code" :message="lang('snippet_msg')"/>
 
       <Tabs
         id="snippet"
         :tabs="[
-          { id: 'Snippet', title: $t('settings_general') },
-          { id: 'Config', title: $t('settings_config') },
-          { id: 'Props', title: $t('settings_properties') },
-          { id: 'DocBlock', title: $t('information') }
+          { id: 'Snippet', title: lang('settings_general') },
+          { id: 'Config', title: lang('settings_config') },
+          { id: 'Props', title: lang('settings_properties') },
+          { id: 'DocBlock', title: lang('information') }
         ]">
         <!-- General -->
         <template #Snippet>
@@ -21,11 +21,11 @@
             <div class="form-group">
 
               <div class="row form-row mb-1">
-                <label class="col-md-3 col-lg-2">{{ $t('snippet_name') }}</label>
+                <label class="col-md-3 col-lg-2">{{ lang('snippet_name') }}</label>
                 <div class="col-md-9 col-lg-10">
                   <div class="form-control-name clearfix">
                     <input v-model="data.name" type="text" maxlength="100" class="form-control form-control-lg" onchange="documentDirty=true;"/>
-                      <label v-if="$store.state.Settings.permissions['save_role']" :title="$t('lock_snippet_msg')">
+                      <label v-if="$store.state.Settings.permissions['save_role']" :title="lang('lock_snippet_msg')">
                         <input v-model="data.locked" type="checkbox" :false-value="0" :true-value="1"/>
                         <i class="fa fa-lock" :class="[data.locked ? 'text-danger' : 'text-muted']"></i>
                       </label>
@@ -35,14 +35,14 @@
               </div>
 
               <div class="row form-row mb-1">
-                <label class="col-md-3 col-lg-2">{{ $t('snippet_desc') }}</label>
+                <label class="col-md-3 col-lg-2">{{ lang('snippet_desc') }}</label>
                 <div class="col-md-9 col-lg-10">
                   <input v-model="data.description" type="text" maxlength="255" class="form-control" onchange="documentDirty=true;"/>
                 </div>
               </div>
 
               <div class="row form-row mb-1">
-                <label class="col-md-3 col-lg-2">{{ $t('existing_category') }}</label>
+                <label class="col-md-3 col-lg-2">{{ lang('existing_category') }}</label>
                 <div class="col-md-9 col-lg-10">
                   <select v-model="data.category" class="form-select" onchange="documentDirty=true;">
                     <option v-for="category in $store.state.Settings.categories" :key="category.id" :value="category.id">
@@ -53,7 +53,7 @@
               </div>
 
               <div class="row form-row mb-1">
-                <label class="col-md-3 col-lg-2">{{ $t('new_category') }}</label>
+                <label class="col-md-3 col-lg-2">{{ lang('new_category') }}</label>
                 <div class="col-md-9 col-lg-10">
                   <input v-model="data.newcategory" type="text" maxlength="45" class="form-control" onchange="documentDirty=true;"/>
                 </div>
@@ -66,23 +66,23 @@
               <div v-if="$store.state.Settings.user.role === 1" class="form-row mb-1">
                 <div class="form-check">
                   <input v-model="data.disabled" type="checkbox" class="form-check-input" id="disabled" :false-value="0" :true-value="1">
-                  <label class="form-check-label" for="disabled">{{ $t('disabled') }}</label>
+                  <label class="form-check-label" for="disabled">{{ lang('disabled') }}</label>
                 </div>
               </div>
 
               <div class="form-row mb-1">
                 <div class="form-check">
                   <input v-model="data.parse_docblock" type="checkbox" class="form-check-input" id="parse_docblock" :false-value="0" :true-value="1">
-                  <label class="form-check-label" for="parse_docblock">{{ $t('parse_docblock') }}</label>
+                  <label class="form-check-label" for="parse_docblock">{{ lang('parse_docblock') }}</label>
                 </div>
-                <small v-if="data.parse_docblock" class="text-danger d-block" v-html="$t('parse_docblock_msg')"/>
+                <small v-if="data.parse_docblock" class="text-danger d-block" v-html="lang('parse_docblock_msg')"/>
               </div>
 
             </div>
 
             <!-- PHP text editor start -->
             <div class="navbar-editor mt-3 mb-1">
-              <span>{{ $t('snippet_code') }}</span>
+              <span>{{ lang('snippet_code') }}</span>
             </div>
 
           </div>
@@ -97,7 +97,7 @@
         <template #Config>
           <div class="container-fluid container-body py-3">
             <div class="form-group">
-              <a href="javascript:;" class="btn btn-sm btn-primary" onclick="setDefaults(this);return false;">{{ $t('set_default_all') }}</a>
+              <a href="javascript:;" class="btn btn-sm btn-primary" onclick="setDefaults(this);return false;">{{ lang('set_default_all') }}</a>
             </div>
             <div id="displayparamrow">
               <div id="displayparams"></div>
@@ -110,17 +110,17 @@
           <div class="container-fluid container-body py-3">
             <div class="form-group">
               <div class="row form-row">
-                <label class="col-md-3 col-lg-2">{{ $t('import_params') }}</label>
+                <label class="col-md-3 col-lg-2">{{ lang('import_params') }}</label>
                 <div class="col-md-9 col-lg-10">
                   <select name="moduleguid" class="form-control" onchange="documentDirty=true;">
                     <option>&nbsp;</option>
                   </select>
-                  <small class="form-text text-muted">{{ $t('import_params_msg') }}</small>
+                  <small class="form-text text-muted">{{ lang('import_params_msg') }}</small>
                 </div>
               </div>
             </div>
             <div class="form-group">
-              <a href="javascript:;" class="btn btn-sm btn-primary" onclick='tpSnippet.pages[1].select();showParameters(this);return false;'>{{ $t('update_params') }}</a>
+              <a href="javascript:;" class="btn btn-sm btn-primary" onclick='tpSnippet.pages[1].select();showParameters(this);return false;'>{{ lang('update_params') }}</a>
             </div>
           </div>
           <!-- HTML text editor start -->

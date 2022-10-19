@@ -1,7 +1,7 @@
 <template>
   <div>
 
-    <TitleView :title="title" :icon="icon" :message="$t('user_management_msg')"/>
+    <TitleView :title="title" :icon="icon" :message="lang('user_management_msg')"/>
 
     <TableView
       :data="data"
@@ -15,7 +15,7 @@
       @getData="list">
       <router-link :to="{ name: element, params: { id: '' } }" class="btn btn-success btn-sm">
         <i class="fa fa-plus"></i>
-        {{ $t('new_user') }}
+        {{ lang('new_user') }}
       </router-link>
     </TableView>
 

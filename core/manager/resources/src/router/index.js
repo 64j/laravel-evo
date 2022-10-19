@@ -1,5 +1,5 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
-import store from '@/store'
+//import store from '@/store'
 
 const routes = [
   {
@@ -169,33 +169,33 @@ const router = createRouter({
   routes
 })
 
-router.beforeEach((to, from, next) => {
-  if (store.state['Settings'].user.role) {
-    if (to?.redirectedFrom?.name === 'AuthLogout') {
-      store.dispatch('Settings/del').then(() => {
-        store.dispatch('MultiTabs/delAllTabs').then(() => {
-          next({ name: 'AuthLogin' })
-        })
-      })
-    } else if (to.name === 'AuthLogin') {
-      next('/')
-    } else {
-      next()
-    }
-  } else if (!store.state['Settings'].user.role) {
-    if (to.name !== 'AuthLogin') {
-      store.dispatch('Settings/del').then(() => {
-        store.dispatch('MultiTabs/delAllTabs').then(() => {
-          next({ name: 'AuthLogin' })
-        })
-      })
-    } else {
-      next()
-    }
-  } else {
-    next()
-  }
-})
+// router.beforeEach((to, from, next) => {
+//   if (store.state['Settings'].user.role) {
+//     if (to?.redirectedFrom?.name === 'AuthLogout') {
+//       store.dispatch('Settings/del').then(() => {
+//         store.dispatch('MultiTabs/delAllTabs').then(() => {
+//           next({ name: 'AuthLogin' })
+//         })
+//       })
+//     } else if (to.name === 'AuthLogin') {
+//       next('/')
+//     } else {
+//       next()
+//     }
+//   } else if (!store.state['Settings'].user.role) {
+//     if (to.name !== 'AuthLogin') {
+//       store.dispatch('Settings/del').then(() => {
+//         store.dispatch('MultiTabs/delAllTabs').then(() => {
+//           next({ name: 'AuthLogin' })
+//         })
+//       })
+//     } else {
+//       next()
+//     }
+//   } else {
+//     next()
+//   }
+// })
 
 router.onError((handler) => {
   console.log('error:', handler)

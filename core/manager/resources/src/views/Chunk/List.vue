@@ -5,8 +5,8 @@
     :search-input="true"
     link-name="ChunkIndex"
     link-icon="fa fa-th-large"
-    :txt-new="$t('new_htmlsnippet')"
-    :txt-help="$t('htmlsnippet_management_msg')"
+    :txt-new="lang('new_htmlsnippet')"
+    :txt-help="lang('htmlsnippet_management_msg')"
     @action="action"
   />
 </template>

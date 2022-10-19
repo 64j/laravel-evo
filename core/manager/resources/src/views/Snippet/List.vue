@@ -5,8 +5,8 @@
     :search-input="true"
     link-name="SnippetIndex"
     link-icon="fa fa-code"
-    :txt-new="$t('new_snippet')"
-    :txt-help="$t('snippet_management_msg')"
+    :txt-new="lang('new_snippet')"
+    :txt-help="lang('snippet_management_msg')"
     @action="action"
   />
 </template>

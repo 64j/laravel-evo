@@ -7,7 +7,7 @@ import '@fortawesome/fontawesome-free/css/all.css'
 
 const app = createApp(App)
 
-store.dispatch('Settings/get').then(() => {
+store.dispatch('Settings/get').then(settings => {
   app.mixin({
     methods: {
       hasPermissions (permissions) {
@@ -23,9 +23,9 @@ store.dispatch('Settings/get').then(() => {
       user (key) {
         return this.$store.state['Settings'].user[key] || null
       },
-      // lang (key, def) {
-      //   return settings.lexicon[key] || def
-      // }
+      lang (key, def) {
+        return settings.lexicon[key] || def
+      }
     },
     // unmounted () {
     //   console.log('unMounted: ' + this.$.type.name)

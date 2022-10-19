@@ -5,8 +5,8 @@
     :search-input="true"
     link-name="PluginIndex"
     link-icon="fa fa-plug"
-    :txt-new="$t('new_plugin')"
-    :txt-help="$t('plugin_management_msg')"
+    :txt-new="lang('new_plugin')"
+    :txt-help="lang('plugin_management_msg')"
     @action="action"
   />
 </template>

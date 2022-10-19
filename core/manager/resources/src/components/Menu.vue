@@ -10,17 +10,17 @@
         </li>
         <li class="parent"
             v-if="hasPermissions(['edit_template', 'edit_snippet', 'edit_chunk', 'edit_plugin'])">
-          <a>{{ $t('elements') }}</a>
+          <a>{{ lang('elements') }}</a>
           <ul>
             <li v-if="hasPermissions('edit_template')" @mouseenter="getSubMenu('Template@list', list.templates)">
               <router-link :to="{ name: 'ElementsIndex', query: { resourcesTab: 0 } }">
-                <i class="fa fa-newspaper"></i> {{ $t('manage_templates') }}
+                <i class="fa fa-newspaper"></i> {{ lang('manage_templates') }}
               </router-link>
               <ul v-if="list.templates.length">
                 <li @mouseenter="subMenuEnter">
                   <router-link :to="{ name: 'TemplateIndex', params: { id: '' } }">
                     <i class="fa fa-plus fa-fw"></i>
-                    {{ $t('new_template') }}
+                    {{ lang('new_template') }}
                   </router-link>
                 </li>
                 <li v-for="item in list.templates" :key="'item-template-' + item.id" @mouseenter="subMenuEnter">
@@ -33,13 +33,13 @@
             </li>
             <li v-if="hasPermissions('edit_snippet')" @mouseenter="getSubMenu('Tv@list', list.tvs)">
               <router-link :to="{ name: 'ElementsIndex', query: { resourcesTab: 1 } }">
-                <i class="fa fa-list-alt"></i> {{ $t('tmplvars') }}
+                <i class="fa fa-list-alt"></i> {{ lang('tmplvars') }}
               </router-link>
               <ul v-if="list.tvs.length">
                 <li @mouseenter="subMenuEnter">
                   <router-link :to="{ name: 'TvIndex', params: { id: '' } }">
                     <i class="fa fa-plus fa-fw"></i>
-                    {{ $t('new_tmplvars') }}
+                    {{ lang('new_tmplvars') }}
                   </router-link>
                 </li>
                 <li v-for="item in list.tvs" :key="'item-tv-' + item.id" @mouseenter="subMenuEnter">
@@ -52,13 +52,13 @@
             </li>
             <li v-if="hasPermissions('edit_chunk')" @mouseenter="getSubMenu('Chunk@list', list.chunks)">
               <router-link :to="{ name: 'ElementsIndex', query: { resourcesTab: 2 } }">
-                <i class="fa fa-th-large"></i> {{ $t('manage_htmlsnippets') }}
+                <i class="fa fa-th-large"></i> {{ lang('manage_htmlsnippets') }}
               </router-link>
               <ul v-if="list.chunks.length">
                 <li @mouseenter="subMenuEnter">
                   <router-link :to="{ name: 'ChunkIndex', params: { id: '' } }">
                     <i class="fa fa-plus fa-fw"></i>
-                    {{ $t('new_htmlsnippet') }}
+                    {{ lang('new_htmlsnippet') }}
                   </router-link>
                 </li>
                 <li v-for="item in list.chunks" :key="'item-chunk-' + item.id" @mouseenter="subMenuEnter">
@@ -71,13 +71,13 @@
             </li>
             <li v-if="hasPermissions('edit_snippet')" @mouseenter="getSubMenu('Snippet@list', list.snippets)">
               <router-link :to="{ name: 'ElementsIndex', query: { resourcesTab: 3 } }">
-                <i class="fa fa-code"></i> {{ $t('manage_snippets') }}
+                <i class="fa fa-code"></i> {{ lang('manage_snippets') }}
               </router-link>
               <ul v-if="list.snippets.length">
                 <li @mouseenter="subMenuEnter">
                   <router-link :to="{ name: 'SnippetIndex', params: { id: '' } }">
                     <i class="fa fa-plus fa-fw"></i>
-                    {{ $t('new_snippet') }}
+                    {{ lang('new_snippet') }}
                   </router-link>
                 </li>
                 <li v-for="item in list.snippets" :key="'item-snippet-' + item.id" @mouseenter="subMenuEnter">
@@ -90,13 +90,13 @@
             </li>
             <li v-if="hasPermissions('edit_plugin')" @mouseenter="getSubMenu('Plugin@list', list.plugins)">
               <router-link :to="{ name: 'ElementsIndex', query: { resourcesTab: 4 } }">
-                <i class="fa fa-plug"></i> {{ $t('manage_plugins') }}
+                <i class="fa fa-plug"></i> {{ lang('manage_plugins') }}
               </router-link>
               <ul v-if="list.plugins.length">
                 <li @mouseenter="subMenuEnter">
                   <router-link :to="{ name: 'PluginIndex', params: { id: '' } }">
                     <i class="fa fa-plus fa-fw"></i>
-                    {{ $t('new_plugin') }}
+                    {{ lang('new_plugin') }}
                   </router-link>
                 </li>
                 <li v-for="item in list.plugins" :key="'item-plugin-' + item.id" @mouseenter="subMenuEnter">
@@ -109,13 +109,13 @@
             </li>
             <li v-if="hasPermissions('edit_module')" @mouseenter="getSubMenu('Module@list', list.modules)">
               <router-link :to="{ name: 'ElementsIndex', query: { resourcesTab: 5 } }">
-                <i class="fa fa-cubes"></i> {{ $t('modules') }}
+                <i class="fa fa-cubes"></i> {{ lang('modules') }}
               </router-link>
               <ul v-if="list.modules.length">
                 <li @mouseenter="subMenuEnter">
                   <router-link :to="{ name: 'ModuleIndex', params: { id: '' } }">
                     <i class="fa fa-plus fa-fw"></i>
-                    {{ $t('new_module') }}
+                    {{ lang('new_module') }}
                   </router-link>
                 </li>
                 <li v-for="item in list.modules" :key="'item-module-' + item.id" @mouseenter="subMenuEnter">
@@ -129,7 +129,7 @@
           </ul>
         </li>
         <li class="parent" v-if="hasPermissions('exec_module')" @mouseenter="getSubMenu('Module@list', list.modules)">
-          <a>{{ $t('modules') }}</a>
+          <a>{{ lang('modules') }}</a>
           <ul v-if="list.modules.length">
             <li v-for="item in list.modules" :key="'item-module-exec-' + item.id" @mouseenter="subMenuEnter">
               <router-link :to="{ name: 'ModuleExec', params: { id: item.id } }" :class="{'fst-italic': item.locked, 'text-danger opacity-50': item.disabled}">
@@ -141,47 +141,47 @@
         </li>
         <li class="parent"
             v-if="hasPermissions('edit_user', 'edit_web_user', 'edit_role', 'access_permissions', 'web_access_permissions')">
-          <a>{{ $t('users') }}</a>
+          <a>{{ lang('users') }}</a>
           <ul>
             <li v-if="hasPermissions('edit_user')">
               <router-link :to="{ name: 'UserList' }">
-                <i class="fa fa-user-circle"></i> {{ $t('user_management_title') }}
+                <i class="fa fa-user-circle"></i> {{ lang('user_management_title') }}
               </router-link>
             </li>
             <li v-if="hasPermissions('edit_web_user')">
               <router-link :to="{ name: 'WebUserList' }">
-                <i class="fa fa-user"></i> {{ $t('web_user_management_title') }}
+                <i class="fa fa-user"></i> {{ lang('web_user_management_title') }}
               </router-link>
             </li>
             <li v-if="hasPermissions('edit_role')">
               <router-link :to="{ name: 'RoleList' }">
-                <i class="fa fa-legal"></i> {{ $t('role_management_title') }}
+                <i class="fa fa-legal"></i> {{ lang('role_management_title') }}
               </router-link>
             </li>
             <li v-if="hasPermissions('access_permissions')">
               <router-link :to="{ name: 'UserPermissionsIndex' }">
-                <i class="fa fa-universal-access"></i> {{ $t('manager_permissions') }}
+                <i class="fa fa-universal-access"></i> {{ lang('manager_permissions') }}
               </router-link>
             </li>
             <li v-if="hasPermissions('web_access_permissions')">
               <router-link :to="{ name: 'WebUserPermissionsIndex' }">
-                <i class="fa fa-male"></i> {{ $t('web_permissions') }}
+                <i class="fa fa-male"></i> {{ lang('web_permissions') }}
               </router-link>
             </li>
           </ul>
         </li>
         <li class="parent"
             v-if="hasPermissions('empty_cache')">
-          <a>{{ $t('tools') }}</a>
+          <a>{{ lang('tools') }}</a>
           <ul>
             <li>
               <router-link :to="{ name: 'ClearCacheIndex' }">
-                <i class="fa fa-recycle"></i> {{ $t('refresh_site') }}
+                <i class="fa fa-recycle"></i> {{ lang('refresh_site') }}
               </router-link>
             </li>
             <li>
               <router-link :to="{ name: 'SearchIndex' }">
-                <i class="fa fa-search"></i> {{ $t('search') }}
+                <i class="fa fa-search"></i> {{ lang('search') }}
               </router-link>
             </li>
           </ul>
@@ -195,12 +195,12 @@
           <ul>
             <li>
               <router-link :to="{ name: 'AuthPasswordChange' }">
-                <i class="fa fa-lock"></i> {{ $t('change_password') }}
+                <i class="fa fa-lock"></i> {{ lang('change_password') }}
               </router-link>
             </li>
             <li>
               <router-link :to="{ name: 'AuthLogout' }">
-                <i class="fa fa-sign-out"></i> {{ $t('logout') }}
+                <i class="fa fa-sign-out"></i> {{ lang('logout') }}
               </router-link>
             </li>
           </ul>
@@ -211,34 +211,34 @@
           <ul>
             <li v-if="hasPermissions('settings')">
               <router-link :to="{ name: 'ConfigurationIndex' }">
-                <i class="fa fa-sliders"></i> {{ $t('edit_settings') }}
+                <i class="fa fa-sliders"></i> {{ lang('edit_settings') }}
               </router-link>
             </li>
             <li>
               <router-link :to="{ name: 'SchedulesIndex' }">
-                <i class="fa fa-calendar"></i> {{ $t('site_schedule') }}
+                <i class="fa fa-calendar"></i> {{ lang('site_schedule') }}
               </router-link>
             </li>
             <li v-if="hasPermissions('view_eventlog')">
               <router-link :to="{ name: 'EventLogList' }">
-                <i class="fa fa-exclamation-triangle"></i> {{ $t('eventlog_viewer') }}
+                <i class="fa fa-exclamation-triangle"></i> {{ lang('eventlog_viewer') }}
               </router-link>
             </li>
             <template v-if="hasPermissions('logs')">
               <li>
                 <router-link :to="{ name: 'SystemLogIndex' }">
-                  <i class="fa fa-user-secret"></i> {{ $t('view_logging') }}
+                  <i class="fa fa-user-secret"></i> {{ lang('view_logging') }}
                 </router-link>
               </li>
               <li>
                 <router-link :to="{ name: 'SystemInfoIndex' }">
-                  <i class="fa fa-info-circle"></i> {{ $t('view_sysinfo') }}
+                  <i class="fa fa-info-circle"></i> {{ lang('view_sysinfo') }}
                 </router-link>
               </li>
             </template>
             <li v-if="hasPermissions('help')">
               <router-link :to="{ name: 'HelpIndex' }">
-                <i class="fa fa-question-circle"></i> {{ $t('help') }}
+                <i class="fa fa-question-circle"></i> {{ lang('help') }}
               </router-link>
             </li>
             <li>
@@ -289,9 +289,6 @@ export default {
     })
   },
   methods: {
-    $t (a) {
-      return this.$store.state['Settings'].lang(a)
-    },
     click (event) {
       if (event.target.classList.contains('link-home')) {
         this.$el.parentElement.classList.remove('active')

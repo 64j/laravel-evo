@@ -4,86 +4,86 @@
 
     <form name="mutate" v-show="loading">
 
-      <TitleView :title="$t('settings_title')" :icon="data.icon"/>
+      <TitleView :title="lang('settings_title')" :icon="data.icon"/>
 
       <Tabs
         id="Configuration"
         :tabs="[
-          { id: 'Site_settings', title: $t('settings_site') },
-          { id: 'furl_settings', title: $t('settings_furls') },
-          { id: 'user_settings', title: $t('settings_users') },
-          { id: 'manager_settings', title: $t('settings_ui') },
-          { id: 'security_settings', title: $t('settings_security') },
-          { id: 'filemanager_settings', title: $t('settings_misc') },
-          { id: 'filebrowser_settings', title: $t('settings_KC') },
+          { id: 'Site_settings', title: lang('settings_site') },
+          { id: 'furl_settings', title: lang('settings_furls') },
+          { id: 'user_settings', title: lang('settings_users') },
+          { id: 'manager_settings', title: lang('settings_ui') },
+          { id: 'security_settings', title: lang('settings_security') },
+          { id: 'filemanager_settings', title: lang('settings_misc') },
+          { id: 'filebrowser_settings', title: lang('settings_KC') },
         ]">
         <template #Site_settings>
           <div class="container-fluid container-body pt-3">
 
             <div class="row form-row mb-1">
               <label class="col-md-3 col-lg-2">
-                {{ $t('sitestatus_title') }}
+                {{ lang('sitestatus_title') }}
                 <br>
                 <small>[(site_status)]</small>
               </label>
               <div class="col-md-9 col-lg-10">
                 <label>
                   <input v-model="$store.state.Settings.config.site_status" type="radio" value="1" class="form-check-input">
-                  {{ $t('online') }}
+                  {{ lang('online') }}
                 </label>
                 <br>
                 <label>
                   <input v-model="$store.state.Settings.config.site_status" type="radio" value="0" class="form-check-input">
-                  {{ $t('offline') }}
+                  {{ lang('offline') }}
                 </label>
               </div>
             </div>
 
             <div class="row form-row mb-1">
               <label class="col-md-3 col-lg-2">
-                {{ $t('sitename_title') }}
+                {{ lang('sitename_title') }}
                 <br>
                 <small>[(site_name)]</small>
               </label>
               <div class="col-md-9 col-lg-10">
                 <input v-model="$store.state.Settings.config.site_name" type="text" maxlength="255" class="form-control">
-                <div class="small text-muted">{{ $t('sitename_message') }}</div>
+                <div class="small text-muted">{{ lang('sitename_message') }}</div>
               </div>
             </div>
 
             <div class="row form-row mb-1">
               <label class="col-md-3 col-lg-2">
-                {{ $t('emailsender_title') }}
+                {{ lang('emailsender_title') }}
                 <br>
                 <small>[(emailsender)]</small>
               </label>
               <div class="col-md-9 col-lg-10">
                 <input v-model="$store.state.Settings.config.emailsender" type="text" maxlength="255" class="form-control">
-                <div class="small text-muted">{{ $t('emailsender_message') }}</div>
+                <div class="small text-muted">{{ lang('emailsender_message') }}</div>
               </div>
             </div>
 
             <div class="row form-row mb-1">
               <label class="col-md-3 col-lg-2">
-                {{ $t('sitestart_title') }}
+                {{ lang('sitestart_title') }}
                 <br>
                 <small>[(site_start)]</small>
               </label>
               <div class="col-md-9 col-lg-10">
                 <input v-model="$store.state.Settings.config.site_start" type="text" maxlength="255" class="form-control">
-                <div class="small text-muted">{{ $t('sitestart_message') }}</div>
+                <div class="small text-muted">{{ lang('sitestart_message') }}</div>
               </div>
             </div>
 
             <div class="row form-row mb-1">
               <label class="col-md-3 col-lg-2">
-                {{ $t('errorpage_title') }}
+                {{ lang('errorpage_title') }}
                 <br>
                 <small>[(error_page)]</small>
               </label>
               <div class="col-md-9 col-lg-10">
                 <input v-model="$store.state.Settings.config.error_page" type="text" maxlength="255" class="form-control">
-                <div class="small text-muted">{{ $t('errorpage_message') }}</div>
+                <div class="small text-muted">{{ lang('errorpage_message') }}</div>
               </div>
             </div>
 

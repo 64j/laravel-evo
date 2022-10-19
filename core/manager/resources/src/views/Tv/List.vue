@@ -5,8 +5,8 @@
     :search-input="true"
     link-name="TvIndex"
     link-icon="fa fa-list-alt"
-    :txt-new="$t('new_tmplvars')"
-    :txt-help="$t('tmplvars_management_msg')"
+    :txt-new="lang('new_tmplvars')"
+    :txt-help="lang('tmplvars_management_msg')"
     @action="action"
   />
 </template>

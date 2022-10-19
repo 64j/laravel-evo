@@ -9,7 +9,7 @@
       <div class="container-fluid container-body px-4">
 
         <div class="row form-row mb-1">
-          <label class="col-md-3 col-lg-2">{{ $t('role_name') }}</label>
+          <label class="col-md-3 col-lg-2">{{ lang('role_name') }}</label>
           <div class="col-md-9 col-lg-10">
             <div class="form-control-name">
               <input v-model="data.name" type="text" maxlength="50" class="form-control" onchange="documentDirty=true;"/>
@@ -19,7 +19,7 @@
         </div>
 
         <div class="row form-row mb-3">
-          <label class="col-md-3 col-lg-2">{{ $t('resource_description') }}</label>
+          <label class="col-md-3 col-lg-2">{{ lang('resource_description') }}</label>
           <div class="col-md-9 col-lg-10">
             <input v-model="data.description" type="text" maxlength="255" class="form-control" onchange="documentDirty=true;"/>
           </div>
@@ -29,11 +29,11 @@
           <template v-for="(category, i) in meta.categories">
             <div v-if="category" :key="`c` + i" class="col-6 col-md-4 col-lg-3">
               <div v-for="(categoryItem, k) in category" :key="k" class="pb-3">
-                <h5 class="mb-3">{{ categoryItem.lang ? $t(categoryItem.lang) : categoryItem.title }}</h5>
+                <h5 class="mb-3">{{ categoryItem.lang ? lang(categoryItem.lang) : categoryItem.title }}</h5>
                 <div v-for="(item, j) in categoryItem.items" :key="j">
                   <div class="form-check">
                     <input v-model="data[j]" type="checkbox" class="form-check-input" :id="j" :false-value="0" :true-value="1" :disabled="item.disabled">
-                    <label class="form-check-label" :for="j">{{ item.lang ? $t(item.lang) : item.title }}</label>
+                    <label class="form-check-label" :for="j">{{ item.lang ? lang(item.lang) : item.title }}</label>
                   </div>
                 </div>
               </div>
