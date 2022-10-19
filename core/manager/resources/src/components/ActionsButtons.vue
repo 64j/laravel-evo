@@ -1,17 +1,17 @@
 <template>
   <div class="actions-buttons position-fixed rounded-bottom bg-opacity-10 bg-secondary p-2">
     <div class="btn-group btn-group-sm">
-      <button type="button" class="btn btn-light btn-outline-secondary shadow-none" @click="$emit('action', 'cancel', $event)" :title="$store.state['Settings'].lang('cancel')">
+      <button type="button" class="btn btn-light btn-outline-secondary shadow-none" @click="$emit('action', 'cancel', $event)" :title="lang('cancel')">
         <i class="fa fa-reply fa-fw"/>
-        <span>{{ $store.state['Settings'].lang('cancel') }}</span>
+        <span>{{ lang('cancel') }}</span>
       </button>
-      <button type="button" class="btn btn-danger shadow-none" @click="$emit('action', 'delete', $event)" :title="$store.state['Settings'].lang('delete')">
+      <button type="button" class="btn btn-danger shadow-none" @click="$emit('action', 'delete', $event)" :title="lang('delete')">
         <i class="fa fa-trash-alt fa-fw"/>
-        <span>{{ $store.state['Settings'].lang('delete') }}</span>
+        <span>{{ lang('delete') }}</span>
       </button>
-      <button type="button" class="btn btn-success shadow-none" @click="$emit('action', 'save', $event)" :title="$store.state['Settings'].lang('save')">
+      <button type="button" class="btn btn-success shadow-none" @click="$emit('action', 'save', $event)" :title="lang('save')">
         <i class="fa fa-save fa-fw"/>
-        <span>{{ $store.state['Settings'].lang('save') }}</span>
+        <span>{{ lang('save') }}</span>
       </button>
     </div>
   </div>
