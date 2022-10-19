@@ -12,7 +12,9 @@ use Manager\Interfaces\ControllerInterface;
 
 abstract class Controller extends BaseController implements ControllerInterface
 {
-    use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+    use AuthorizesRequests;
+    use DispatchesJobs;
+    use ValidatesRequests;
 
     /**
      * @var Kernel
