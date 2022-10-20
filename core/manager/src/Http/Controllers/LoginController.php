@@ -6,7 +6,10 @@ namespace Manager\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Session;
 
 class LoginController extends Controller
 {
@@ -15,34 +18,26 @@ class LoginController extends Controller
      */
     protected string $view = 'template.login';
 
-    public function test()
+    public function run(Request $request)
     {
-        return [];
-    }
+        if ($request->isMethod('POST')) {
+            $credentials = $request->validate([
+                'username' => ['required'],
+                'password' => ['required'],
+            ]);
 
-    /**
-     * @return bool
-     */
-    public function run(Request $request): bool
-    {
-        dD($request);
+            if (Auth::attempt($credentials)) {
+                $request->session()->regenerate();
 
-        $user = User::query()->find(1);
-
-        dd(Auth::login($user));
-        dd(Auth::validate([]));
-        dd($this->kernel->getApplication()->request);
-        $credentials = $request->getCredentials();
-
-        $user = User::query()->find(1);
-
-        Auth::login($user);
+                return Redirect::to('/');
+            }
+        }
 
         $this->parameters = [
             'test' => 'test',
             'errors' => collect()
         ];
 
-        return true;
+        return $this->handle();
     }
 }

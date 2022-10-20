@@ -25,7 +25,7 @@ export default {
       'Cache': 'no-cache',
       'Accept': 'application/json',
       'Content-Type': 'application/json',
-      'x-access-token': localStorage['EVO.TOKEN'] || ''
+      'X-CSRF-TOKEN': localStorage['EVO.TOKEN'] || '',
     }, headers || {})
   },
 
@@ -92,38 +92,6 @@ export default {
 
   options (url, body) {
     return this.fetch('options', url, body)
-  },
-
-  login (data) {
-    this.baseUrl = data.host
-
-    const body = new FormData()
-    for (const i in data) {
-      body.append(i, data[i])
-    }
-
-    return fetch(this.baseUrl + 'manager/processors/login.processor.php', {
-      method: 'post',
-      body: body,
-      credentials: 'same-origin'
-    }).then((res) => {
-      if (res.status === 404) {
-        return {
-          errors: [
-            {
-              code: 404,
-              message: 'Not found'
-            }
-          ]
-        }
-      }
-
-      if (/text\/html/.test(res.headers.get('content-type'))) {
-        return res.text()
-      }
-
-      return res.json()
-    }).catch(this.handlerCatch)
   },
 
   settings (callback) {

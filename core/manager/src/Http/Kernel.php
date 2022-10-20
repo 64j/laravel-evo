@@ -5,6 +5,7 @@ namespace Manager\Http;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\View as ContractView;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
+use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\View;
@@ -21,54 +22,27 @@ class Kernel extends HttpKernel
     protected $app;
 
     /**
+     * @var string
+     */
+    protected string $namespace = 'manager';
+
+    /**
      * The application's global HTTP middleware stack.
      *
      * These middleware are run during every request to your application.
      *
      * @var array<int, class-string|string>
      */
-//    protected $middleware = [
-//        \Fruitcake\Cors\HandleCors::class,
-//        \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
-//        \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
-//        // \Manager\Http\Middleware\TrustHosts::class,
-//        \Manager\Http\Middleware\TrustProxies::class,
-//        \Manager\Http\Middleware\PreventRequestsDuringMaintenance::class,
-//        \Manager\Http\Middleware\TrimStrings::class,
-//    ];
-
-
     protected $middleware = [
-//        \Manager\Http\Middleware\HandleCors::class,
-//        \Manager\Http\Middleware\Authenticate::class,
-//        \Manager\Http\Middleware\EncryptCookies::class,
-//        \Manager\Http\Middleware\VerifyCsrfToken::class,
-//        \Illuminate\Session\Middleware\StartSession::class,
-//        \Illuminate\Session\Middleware\AuthenticateSession::class,
+        \Illuminate\Session\Middleware\AuthenticateSession::class,
+        \Illuminate\Session\Middleware\StartSession::class,
+        \Illuminate\View\Middleware\ShareErrorsFromSession::class,
+        \Manager\Http\Middleware\VerifyCsrfToken::class,
+        \Manager\Http\Middleware\HandleCors::class,
+        \Manager\Http\Middleware\TrimStrings::class,
+        \Manager\Http\Middleware\Authenticate::class,
+        \Manager\Http\Middleware\EncryptCookies::class,
     ];
-
-    /**
-     * The application's route middleware groups.
-     *
-     * @var array<string, array<int, class-string|string>>
-     */
-    protected $middlewareGroups = [
-        'web' => [
-            \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
-            \Illuminate\Session\Middleware\StartSession::class,
-            \Illuminate\Session\Middleware\AuthenticateSession::class,
-            \Illuminate\Routing\Middleware\SubstituteBindings::class,
-            \Illuminate\View\Middleware\ShareErrorsFromSession::class,
-            \Manager\Http\Middleware\VerifyCsrfToken::class,
-            \Manager\Http\Middleware\EncryptCookies::class,
-            \Manager\Http\Middleware\Authenticate::class,
-        ],
-    ];
-
-    /**
-     * @var string
-     */
-    protected string $namespace = 'manager';
 
     /**
      * @var array
@@ -236,10 +210,18 @@ class Kernel extends HttpKernel
 //        };
 //    }
 
+    public function run(Request $request)
+    {
+        $controller = $request->has('method') ? '\Manager\Http\Controllers\\' . $request->input('method') : null;
+        $params = $request->input('params');
+
+        return App::call($controller, ['params' => $params]);
+    }
+
     /**
      * @return string|null
      */
-    public function run(): ?string
+    public function run__(Request $request): ?string
     {
         $out = '';
         $action = $this->app->request->input('a', 1);

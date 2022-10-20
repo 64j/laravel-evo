@@ -5,6 +5,7 @@ namespace Manager\Http\Controllers;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\View;
 use Manager\Http\Kernel;
@@ -49,8 +50,6 @@ abstract class Controller extends BaseController implements ControllerInterface
     {
         $this->kernel = $kernel;
         $this->data = $data;
-
-        $this->middleware('auth');
     }
 
     /**
@@ -148,5 +147,23 @@ abstract class Controller extends BaseController implements ControllerInterface
     public function handle(): string
     {
         return $this->process() ? $this->render() : '';
+    }
+
+    /**
+     * @param $data
+     * @param array $meta
+     * @param int $status
+     * @param array $headers
+     *
+     * @return JsonResponse
+     */
+    protected function ok($data = [], array $meta = [], int $status = 200, array $headers = []): JsonResponse
+    {
+        $meta['X-SRF-TOKEN'] = csrf_token();
+
+        return \response()->json([
+            'meta' => $meta,
+            'data' => $data,
+        ], $status, $headers);
     }
 }

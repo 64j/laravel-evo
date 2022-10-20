@@ -21,7 +21,7 @@ const mutations = {
     for (let i in state) {
       state[i] = {}
     }
-    localStorage.removeItem('EVO.TOKEN')
+    //localStorage.removeItem('EVO.TOKEN')
   }
 }
 

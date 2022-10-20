@@ -12,20 +12,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-//Route::group(['web'], fn()=> Route::any('/', 'HomeController@process')->name('login'));
-//Route::any('/', 'HomeController@process')->name('login');
+Route::get('/', 'HomeController@handle')->name('login');
 
-//Route::any('/', function () {
-//    if (\Illuminate\Support\Facades\Auth::check()) {
-//        return app()->version();
-//    } else {
-//        return csrf_token();
-//    }
-//    //return csrf_token();
-//})->name('login');
-
-Route::any('/', 'LoginController@test')->name('login');
-
-//Route::any('/', 'HomeController@handle');
-
-Route::post('/', 'Controller@process');
+//Route::post('/', 'Controller@process');
+Route::post('/', '\Manager\Http\Kernel@run');
