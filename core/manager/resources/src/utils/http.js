@@ -6,7 +6,7 @@ export default {
   baseUrl: localStorage['EVO.HOST'] || '',
 
   setUrl () {
-    return this.baseUrl + 'manager'
+    return this.baseUrl + 'manager/'
   },
 
   setBody (body) {

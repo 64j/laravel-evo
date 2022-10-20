@@ -49,6 +49,8 @@ abstract class Controller extends BaseController implements ControllerInterface
     {
         $this->kernel = $kernel;
         $this->data = $data;
+
+        $this->middleware('auth');
     }
 
     /**
@@ -138,5 +140,13 @@ abstract class Controller extends BaseController implements ControllerInterface
     public function process(): bool
     {
         return true;
+    }
+
+    /**
+     * @return string
+     */
+    public function handle(): string
+    {
+        return $this->process() ? $this->render() : '';
     }
 }

@@ -13,10 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::any('/as', function () {
-    return 'as';
-});
-
-Route::any('/manager', function () {
-    return 'as';
+Route::any('/', function () {
+    //return csrf_token();
+    return 'Index ' . app()->version();
 });

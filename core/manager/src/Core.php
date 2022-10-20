@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Manager;
 
+use Fruitcake\Cors\CorsServiceProvider;
 use Illuminate\Auth\AuthServiceProvider;
 use Illuminate\Auth\Passwords\PasswordResetServiceProvider;
 use Illuminate\Broadcasting\BroadcastServiceProvider;
@@ -32,6 +33,8 @@ use Illuminate\Support\Collection;
 use Illuminate\Translation\TranslationServiceProvider;
 use Illuminate\Validation\ValidationServiceProvider;
 use Illuminate\View\ViewServiceProvider;
+use Manager\Providers\AppServiceProvider;
+use Manager\Providers\EventServiceProvider;
 use Manager\Providers\RouteServiceProvider;
 
 /**
@@ -77,10 +80,11 @@ class Core extends Application
         /*
          * Application Service Providers...
          */
-        //\Manager\Providers\AppServiceProvider::class,
-        //\Manager\Providers\AuthServiceProvider::class,
+        CorsServiceProvider::class,
+        AppServiceProvider::class,
+        Providers\AuthServiceProvider::class,
         //\Manager\Providers\BroadcastServiceProvider::class,
-        //\Manager\Providers\EventServiceProvider::class,
+        EventServiceProvider::class,
         RouteServiceProvider::class,
     ];
 
@@ -98,6 +102,20 @@ class Core extends Application
 
         (new ProviderRepository($this, new Filesystem(), $this->getCachedServicesPath()))
             ->load($providers->collapse()->toArray());
+    }
+
+    /**
+     * Get the path to the application "app" directory.
+     *
+     * @param string $path
+     *
+     * @return string
+     */
+    public function path($path = ''): string
+    {
+        $appPath = $this->appPath ?: $this->basePath . DIRECTORY_SEPARATOR . $this->namespace;
+
+        return $appPath . ($path ? DIRECTORY_SEPARATOR . $path : $path);
     }
 
     /**

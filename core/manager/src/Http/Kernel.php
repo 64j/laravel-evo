@@ -2,11 +2,11 @@
 
 namespace Manager\Http;
 
-use Closure;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\View as ContractView;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\View;
 use Manager\Core;
 use Manager\Interfaces\ControllerInterface;
@@ -27,14 +27,24 @@ class Kernel extends HttpKernel
      *
      * @var array<int, class-string|string>
      */
+//    protected $middleware = [
+//        \Fruitcake\Cors\HandleCors::class,
+//        \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
+//        \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
+//        // \Manager\Http\Middleware\TrustHosts::class,
+//        \Manager\Http\Middleware\TrustProxies::class,
+//        \Manager\Http\Middleware\PreventRequestsDuringMaintenance::class,
+//        \Manager\Http\Middleware\TrimStrings::class,
+//    ];
+
+
     protected $middleware = [
-        // \Manager\Http\Middleware\TrustHosts::class,
-        \Manager\Http\Middleware\TrustProxies::class,
-        \Fruitcake\Cors\HandleCors::class,
-        \Manager\Http\Middleware\PreventRequestsDuringMaintenance::class,
-        \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
-        \Manager\Http\Middleware\TrimStrings::class,
-        \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
+//        \Manager\Http\Middleware\HandleCors::class,
+//        \Manager\Http\Middleware\Authenticate::class,
+//        \Manager\Http\Middleware\EncryptCookies::class,
+//        \Manager\Http\Middleware\VerifyCsrfToken::class,
+//        \Illuminate\Session\Middleware\StartSession::class,
+//        \Illuminate\Session\Middleware\AuthenticateSession::class,
     ];
 
     /**
@@ -44,39 +54,15 @@ class Kernel extends HttpKernel
      */
     protected $middlewareGroups = [
         'web' => [
-            \Manager\Http\Middleware\EncryptCookies::class,
             \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
             \Illuminate\Session\Middleware\StartSession::class,
-            // \Illuminate\Session\Middleware\AuthenticateSession::class,
+            \Illuminate\Session\Middleware\AuthenticateSession::class,
+            \Illuminate\Routing\Middleware\SubstituteBindings::class,
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \Manager\Http\Middleware\VerifyCsrfToken::class,
-            \Illuminate\Routing\Middleware\SubstituteBindings::class,
+            \Manager\Http\Middleware\EncryptCookies::class,
+            \Manager\Http\Middleware\Authenticate::class,
         ],
-
-        'api' => [
-            // \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
-            'throttle:api',
-            \Illuminate\Routing\Middleware\SubstituteBindings::class,
-        ],
-    ];
-
-    /**
-     * The application's route middleware.
-     *
-     * These middleware may be assigned to groups or used individually.
-     *
-     * @var array<string, class-string|string>
-     */
-    protected $routeMiddleware = [
-        'auth' => \App\Http\Middleware\Authenticate::class,
-        'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
-        'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,
-        'can' => \Illuminate\Auth\Middleware\Authorize::class,
-        'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
-        'password.confirm' => \Illuminate\Auth\Middleware\RequirePassword::class,
-        'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
-        'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
-        'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
     ];
 
     /**
@@ -234,19 +220,21 @@ class Kernel extends HttpKernel
         501,
     ];
 
-    /**
-     * Get the route dispatcher callback.
-     *
-     * @return Closure
-     */
-    protected function dispatchToRouter(): Closure
-    {
-        return function ($request) {
-            $this->app->instance('request', $request);
-
-            return response($this->run());
-        };
-    }
+//    /**
+//     * Get the route dispatcher callback.
+//     *
+//     * @return Closure
+//     */
+//    protected function dispatchToRouter(): Closure
+//    {
+//        return function ($request) {
+//            $this->app->instance('request', $request);
+//            $response = $this->router->dispatch($request);
+//            $response->setContent($this->run());
+//
+//            return $response;
+//        };
+//    }
 
     /**
      * @return string|null
@@ -263,7 +251,7 @@ class Kernel extends HttpKernel
             in_array(ControllerInterface::class, class_implements($controllerName), true)
         ) {
             /** @var ControllerInterface $controller */
-            $controller = new $controllerName($this, $this->app->request->toArray());
+            $controller = App::make($controllerName);
             $controller->setIndex($action);
 
             if (!$controller->canView()) {
@@ -292,7 +280,7 @@ class Kernel extends HttpKernel
     {
         return View::addNamespace(
             $this->app->getNamespace(),
-            [$this->app->viewPath()]
+            $this->app->viewPath()
         )
             ->make(
                 $this->getViewName($name),
