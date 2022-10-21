@@ -4,24 +4,40 @@ declare(strict_types=1);
 
 namespace Manager\Http\Controllers;
 
-class HomeController extends Controller
+use Illuminate\Contracts\View\View as ContractView;
+use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\View;
+
+class Home extends Controller
 {
     /**
-     * @var string
+     * @param Request $request
+     *
+     * @return ContractView
      */
-    protected string $view = 'template.default';
-
-    /**
-     * @return bool
-     */
-    public function process(): bool
+    public function handle(Request $request): ContractView
     {
-        $this->parameters = [
-            'homeTab' => '?a=2',
-            'mainMenu' => $this->getMenu(),
-        ];
+        $view = View::addNamespace(
+            App::getNamespace(),
+            App::viewPath()
+        );
 
-        return true;
+        if (Auth::check()) {
+            return $view->make('manager::template.default', [
+
+            ])
+                ->with([
+                    'controller' => $this,
+                ]);
+        } else {
+            return $view->make('manager::template.login', [])
+                ->with([
+                    'controller' => $this,
+                ]);
+        }
     }
 
     /**

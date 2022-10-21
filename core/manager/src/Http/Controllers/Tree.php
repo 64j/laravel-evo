@@ -8,6 +8,6 @@ class Tree extends Controller
 {
     public function get()
     {
-        return $this->ok();
+        return $this->ok(['Tree get']);
     }
 }

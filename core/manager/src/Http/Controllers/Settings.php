@@ -8,6 +8,6 @@ class Settings extends Controller
 {
     public function get()
     {
-        return $this->ok();
+        return $this->ok(['Settings get']);
     }
 }

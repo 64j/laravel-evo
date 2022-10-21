@@ -21,7 +21,12 @@ class RouteServiceProvider extends ServiceProvider
     {
         $this->routes(
             fn() => Route::namespace($this->namespace)
-                ->group(app_path('routes/web.php'))
+                ->group(
+                    fn() => [
+                        Route::get('/', 'Controller@handle')->name('login'),
+                        Route::post('/', 'Controller@handle')->middleware('auth:manager'),
+                    ]
+                )
         );
     }
 }

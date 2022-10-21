@@ -22,6 +22,8 @@ class User extends \Illuminate\Foundation\Auth\User
         'valid_to',
     ];
 
+    protected $rememberTokenName = 'refresh_token';
+
     public function attributes()
     {
         return $this->hasOne(UserAttribute::class, 'internalKey', 'id');
