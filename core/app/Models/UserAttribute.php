@@ -7,6 +7,7 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @property int $id
@@ -121,6 +122,14 @@ class UserAttribute extends Model
         'photo',
         'comment',
     ];
+
+    /**
+     * @return HasMany
+     */
+    public function rolePermissions(): HasMany
+    {
+        return $this->hasMany(RolePermissions::class, 'role_id', 'role');
+    }
 
     /**
      * @return BelongsTo

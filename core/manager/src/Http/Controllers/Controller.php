@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Manager\Http\Controllers;
 
+use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -15,6 +16,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\View;
 use JsonSerializable;
+use Manager\Core;
 
 class Controller extends RoutingController
 {
@@ -23,7 +25,22 @@ class Controller extends RoutingController
     use ValidatesRequests;
 
     /**
+     * @var Application|Core
+     */
+    protected Application $app;
+
+    /**
+     * @param Application $app
+     */
+    public function __construct(Application $app)
+    {
+        $this->app = $app;
+    }
+
+    /**
      * @param Request $request
+     *
+     * @return \Illuminate\Contracts\View\View|array
      */
     public function handle(Request $request)
     {
@@ -31,7 +48,7 @@ class Controller extends RoutingController
             $controller = $request->has('method') ? '\Manager\Http\Controllers\\' . $request->input('method') : null;
             $params = $request->input('params');
 
-            return App::call($controller, ['params' => $params]);
+            return $this->app->call($controller, ['params' => $params]);
         }
 
         $view = View::addNamespace(

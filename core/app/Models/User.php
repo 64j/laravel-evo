@@ -2,18 +2,33 @@
 
 namespace App\Models;
 
-use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class User extends \Illuminate\Foundation\Auth\User
 {
+    /**
+     * @var bool
+     */
     public $timestamps = false;
 
+    /**
+     * @var string
+     */
+    protected $rememberTokenName = 'access_token';
+
+    /**
+     * @var string[]
+     */
     protected $hidden = [
         'password',
         'cachepwd',
         'verified_key',
     ];
 
+    /**
+     * @var string[]
+     */
     protected $fillable = [
         'username',
         'password',
@@ -24,29 +39,42 @@ class User extends \Illuminate\Foundation\Auth\User
         'valid_to',
     ];
 
-    protected $rememberTokenName = 'access_token';
-
-    public function attributes()
+    /**
+     * @return HasOne
+     */
+    public function attributes(): HasOne
     {
         return $this->hasOne(UserAttribute::class, 'internalKey', 'id');
     }
 
-    public function memberGroups()
+    /**
+     * @return HasMany
+     */
+    public function memberGroups(): HasMany
     {
         return $this->hasMany(MemberGroup::class, 'member', 'id');
     }
 
-    public function settings()
+    /**
+     * @return HasMany
+     */
+    public function settings(): HasMany
     {
         return $this->hasMany(UserSetting::class, 'user', 'id');
     }
 
-    public function values()
+    /**
+     * @return HasMany
+     */
+    public function values(): HasMany
     {
         return $this->hasMany(UserValue::class, 'userid', 'id');
     }
 
-    public function delete()
+    /**
+     * @return bool|null
+     */
+    public function delete(): ?bool
     {
         $this->memberGroups()->delete();
         $this->attributes()->delete();
