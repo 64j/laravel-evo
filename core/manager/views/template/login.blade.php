@@ -8,7 +8,7 @@
     <title>Login</title>
     <script>
       localStorage['EVO.HOST'] = location.href.replace(location.hash, '').replace('/manager/', '/')
-      localStorage['EVO.TOKEN'] = '{{ csrf_token() }}'
+      localStorage['EVO.TOKEN'] = '{{ session('access_token') }}'
     </script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>

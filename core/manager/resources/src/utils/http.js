@@ -25,7 +25,7 @@ export default {
       'Cache': 'no-cache',
       'Accept': 'application/json',
       'Content-Type': 'application/json',
-      'X-CSRF-TOKEN': localStorage['EVO.TOKEN'] || '',
+      'Authorization': 'Bearer ' + localStorage['EVO.TOKEN'] || '',
     }, headers || {})
   },
 

@@ -2,23 +2,48 @@
 
 namespace Manager\Http\Middleware;
 
+use Closure;
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Auth\Middleware\Authenticate as Middleware;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\App;
+use Illuminate\Contracts\Auth\Factory as Auth;
+use Illuminate\Contracts\Foundation\Application;
 
 class Authenticate extends Middleware
 {
     /**
-     * Get the path the user should be redirected to when they are not authenticated.
-     *
-     * @param Request $request
-     *
-     * @return string|null
+     * @var Application
      */
-    protected function redirectTo($request)
+    protected Application $app;
+
+    /**
+     * @param Application $app
+     * @param Auth $auth
+     */
+    public function __construct(Application $app, Auth $auth)
     {
-        if ($request->input('method') == 'Auth@login') {
-            return App::call($request->input('method'));
+        $this->auth = $auth;
+        $this->app = $app;
+    }
+
+    /**
+     * @param $request
+     * @param Closure $next
+     * @param ...$guards
+     *
+     * @return mixed
+     * @throws AuthenticationException
+     */
+    public function handle($request, Closure $next, ...$guards)
+    {
+        if (in_array(
+            $request->input('method'),
+            $this->app['config']->get('auth.guards.manager.except_methods', []),
+            true
+        )
+        ) {
+            return $this->app->call('\Manager\Http\Controllers\\' . $request->input('method'));
         }
+
+        return parent::handle($request, $next, ...$guards);
     }
 }

@@ -1,12 +1,11 @@
 {
-  "name": "crm-vue3",
-  "version": "0.1.0",
+  "name": "vue-evo",
+  "version": "0.2.0",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint",
-    "i18n:report": "vue-cli-service i18n:report --src \"./src/**/*.?(js|vue)\" --locales \"./src/locales/**/*.json\""
+    "lint": "vue-cli-service lint"
   },
   "dependencies": {
     "@kyvg/vue3-notification": "^2.3.4",

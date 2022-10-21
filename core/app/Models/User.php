@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Illuminate\Notifications\Notifiable;
+
 class User extends \Illuminate\Foundation\Auth\User
 {
     public $timestamps = false;
@@ -22,7 +24,7 @@ class User extends \Illuminate\Foundation\Auth\User
         'valid_to',
     ];
 
-    protected $rememberTokenName = 'refresh_token';
+    protected $rememberTokenName = 'access_token';
 
     public function attributes()
     {

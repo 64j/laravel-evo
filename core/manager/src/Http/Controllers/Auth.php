@@ -8,6 +8,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth as FacadeAuth;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 
 class Auth extends Controller
@@ -30,10 +31,15 @@ class Auth extends Controller
         if (FacadeAuth::attempt($credentials)) {
             $request->session()->regenerate();
 
+            $request->user()->setRememberToken(hash('sha256', $token = Str::random(60)));
+            $request->user()->save();
+            $request->session()->put('access_token', $token);
+
             if ($request->expectsJson()) {
                 return [
                     'success' => true,
                     'redirect' => '/',
+                    'token' => $token
                 ];
             }
 
@@ -51,15 +57,22 @@ class Auth extends Controller
      *
      * @param Request $request
      *
-     * @return RedirectResponse
+     * @return array|RedirectResponse
      */
-    public function logout(Request $request): RedirectResponse
+    public function logout(Request $request)
     {
         FacadeAuth::logout();
 
         $request->session()->invalidate();
 
         $request->session()->regenerateToken();
+
+        if ($request->expectsJson()) {
+            return [
+                'success' => true,
+                'redirect' => '/',
+            ];
+        }
 
         return Redirect::to('/');
     }

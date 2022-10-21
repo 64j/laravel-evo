@@ -1,8 +1,9 @@
 const { defineConfig } = require('@vue/cli-service')
+
 module.exports = defineConfig({
-  publicPath: './',
-  outputDir: '../dist',
-  assetsDir: 'static',
+  outputDir: '../../../manager/static',
+  publicPath: process.env.NODE_ENV === 'production' ? './static/' : '/',
+  assetsDir: process.env.NODE_ENV === 'production' ? '../' : 'static',
   transpileDependencies: true,
   productionSourceMap: false,
   filenameHashing: true,
@@ -18,12 +19,18 @@ module.exports = defineConfig({
   },
 
   chainWebpack: config => {
-    if(config.plugins.has('extract-css')) {
+    if (config.plugins.has('extract-css')) {
       const extractCSSPlugin = config.plugin('extract-css')
-      extractCSSPlugin && extractCSSPlugin.tap(() => [{
-        filename: 'app.css',
-        chunkFilename: '[id].[chunkhash].css'
-      }])
+      extractCSSPlugin && extractCSSPlugin.tap(() => [
+          {
+            filename: 'app.css',
+            chunkFilename: '[id].[chunkhash].css'
+          }
+        ]
+      )
     }
-  },
+    // config.plugins.delete('html')
+    // config.plugins.delete('preload')
+    // config.plugins.delete('prefetch')
+  }
 })

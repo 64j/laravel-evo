@@ -24,7 +24,7 @@ class RouteServiceProvider extends ServiceProvider
                 ->group(
                     fn() => [
                         Route::get('/', 'Controller@handle')->name('login'),
-                        Route::post('/', 'Controller@handle')->middleware('auth:manager'),
+                        Route::post('/', 'Controller@handle')->middleware(['auth:manager']),
                     ]
                 )
         );

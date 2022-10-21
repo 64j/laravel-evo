@@ -6,10 +6,10 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Document</title>
     <meta name="X-SRF-TOKEN" content="{{ csrf_token() }}">
-    <script defer="defer" src="../core/manager/dist/app.js"></script>
-    <link href="../core/manager/dist/app.css" rel="stylesheet">
+    <script defer="defer" src="./static/app.js"></script>
+    <link href="./static/app.css" rel="stylesheet">
     <script>
-        localStorage['EVO.TOKEN'] = '{{ csrf_token() }}'
+      localStorage['EVO.TOKEN'] = '{{ session('access_token') }}'
     </script>
 </head>
 <body>

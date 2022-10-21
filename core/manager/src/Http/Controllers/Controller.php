@@ -64,8 +64,6 @@ class Controller extends RoutingController
      */
     protected function ok($data = [], array $meta = [], int $status = 200, array $headers = []): JsonResponse
     {
-        $meta['X-SRF-TOKEN'] = csrf_token();
-
         if ($data instanceof JsonSerializable) {
             $data = $data->jsonSerialize();
         }
