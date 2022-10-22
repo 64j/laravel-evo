@@ -305,19 +305,6 @@ export default {
     subMenuEnter (e) {
       e.target.parentElement.querySelectorAll(':scope > li.hover').forEach(i => i.classList.remove('hover'))
       e.target.classList.add('hover')
-    },
-    hasPermissions (permissions) {
-      if (typeof permissions === 'object') {
-        return permissions.some(permission => !this.$store.state['Settings'].permissions?.[permission].disabled || false)
-      } else {
-        return !this.$store.state['Settings'].permissions?.[permissions].disabled || false
-      }
-    },
-    config(key) {
-      return this.$store.state['Settings'].config[key] || null
-    },
-    user(key) {
-      return this.$store.state['Settings'].user[key] || null
     }
   }
 }
