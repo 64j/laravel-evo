@@ -81,6 +81,10 @@ class Controller extends RoutingController
             $data = $data->jsonSerialize();
         }
 
+        if ($this->app->environment('local') && isset($_SERVER['REQUEST_TIME'])) {
+            $meta['request_time'] = sprintf('%.3f s', microtime(true) - $_SERVER['REQUEST_TIME']);
+        }
+
         return Response::json([
             'meta' => $meta,
             'data' => $data,
