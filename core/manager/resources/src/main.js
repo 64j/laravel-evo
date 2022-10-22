@@ -12,24 +12,21 @@ store.dispatch('Settings/get').then(settings => {
     methods: {
       hasPermissions (permissions) {
         if (typeof permissions === 'object') {
-          return permissions.some((v) => this.$store.state['Settings'].permissions[v])
+          return permissions.some(permission => !settings.permissions?.[permission].disabled || false)
         } else {
-          return !!this.$store.state['Settings'].permissions[permissions]
+          return !settings.permissions?.[permissions].disabled || false
         }
       },
       config (key) {
-        return this.$store.state['Settings'].config[key] || null
+        return settings.config[key] || null
       },
       user (key) {
-        return this.$store.state['Settings'].user[key] || null
+        return settings.user[key] || null
       },
       lang (key, def) {
         return settings.lexicon[key] || def
       }
-    },
-    // unmounted () {
-    //   console.log('unMounted: ' + this.$.type.name)
-    // }
+    }
   })
   app.use(store)
   app.use(router)

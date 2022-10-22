@@ -148,11 +148,6 @@
                 <i class="fa fa-user-circle"></i> {{ lang('user_management_title') }}
               </router-link>
             </li>
-            <li v-if="hasPermissions('edit_web_user')">
-              <router-link :to="{ name: 'WebUserList' }">
-                <i class="fa fa-user"></i> {{ lang('web_user_management_title') }}
-              </router-link>
-            </li>
             <li v-if="hasPermissions('edit_role')">
               <router-link :to="{ name: 'RoleList' }">
                 <i class="fa fa-legal"></i> {{ lang('role_management_title') }}
@@ -161,11 +156,6 @@
             <li v-if="hasPermissions('access_permissions')">
               <router-link :to="{ name: 'UserPermissionsIndex' }">
                 <i class="fa fa-universal-access"></i> {{ lang('manager_permissions') }}
-              </router-link>
-            </li>
-            <li v-if="hasPermissions('web_access_permissions')">
-              <router-link :to="{ name: 'WebUserPermissionsIndex' }">
-                <i class="fa fa-male"></i> {{ lang('web_permissions') }}
               </router-link>
             </li>
           </ul>
@@ -320,9 +310,9 @@ export default {
     },
     hasPermissions (permissions) {
       if (typeof permissions === 'object') {
-        return permissions.some((v) => this.$store.state['Settings'].permissions[v])
+        return permissions.some(permission => !this.$store.state['Settings'].permissions?.[permission].disabled || false)
       } else {
-        return !!this.$store.state['Settings'].permissions[permissions]
+        return !this.$store.state['Settings'].permissions?.[permissions].disabled || false
       }
     },
     config(key) {

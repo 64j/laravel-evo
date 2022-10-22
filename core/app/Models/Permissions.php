@@ -27,4 +27,12 @@ class Permissions extends Model
     {
         return $this->hasOne(PermissionsGroups::class, 'id', 'group_id');
     }
+
+    /**
+     * @return HasOne
+     */
+    public function rolePermissions(): HasOne
+    {
+        return $this->hasOne(RolePermissions::class, 'permission', 'key');
+    }
 }

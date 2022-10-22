@@ -1,5 +1,3 @@
-import store from '@/store'
-import router from '@/router'
 import { toRaw } from 'vue'
 
 export default {
@@ -32,16 +30,6 @@ export default {
   handlerResponse (response) {
     if (response.ok) {
       return response.json()
-    }
-
-    if (response.status !== 404) {
-      if (location.hash !== '#/login') {
-        store.dispatch('Settings/del').then(() => {
-          store.dispatch('MultiTabs/delAllTabs').then(() => {
-            router.push({ name: 'AuthLogin' })
-          })
-        })
-      }
     }
 
     return {}
@@ -78,23 +66,23 @@ export default {
     return this.fetch('post', url, body)
   },
 
-  patch (url, body) {
-    return this.fetch('patch', url, body)
+  read (method, data) {
+    return this.fetch('post', method + '@read', data)
   },
 
-  put (url, body) {
-    return this.fetch('put', url, body)
+  create (method, data) {
+    return this.fetch('post', method + '@create', data)
   },
 
-  delete (url, body) {
-    return this.fetch('delete', url, body)
+  update (method, data) {
+    return this.fetch('post', method + '@update', data)
   },
 
-  options (url, body) {
-    return this.fetch('options', url, body)
+  delete (method, data) {
+    return this.fetch('post', method + '@delete', data)
   },
 
-  settings (callback) {
-    return this.get('/settings').then(callback)
+  list (method, data) {
+    return this.fetch('post', method + '@list', data)
   }
 }

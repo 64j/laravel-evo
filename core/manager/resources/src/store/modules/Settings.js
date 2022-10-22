@@ -21,7 +21,7 @@ const mutations = {
     for (let i in state) {
       state[i] = {}
     }
-    localStorage.removeItem('EVO.TOKEN')
+    //localStorage.removeItem('EVO.TOKEN')
   }
 }
 
@@ -34,7 +34,7 @@ const actions = {
   },
   get ({ commit, state }) {
     return new Promise(resolve => {
-      return http.post('Settings@get').then(result => {
+      return http.read('Settings').then(result => {
         if (result.data) {
           commit('SET_SETTINGS', result.data)
         }
