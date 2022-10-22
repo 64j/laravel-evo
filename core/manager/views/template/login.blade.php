@@ -8,15 +8,13 @@
     <title>Login</title>
     <script>
       localStorage['EVO.HOST'] = location.href.replace(location.hash, '').replace('/manager/', '/')
-      localStorage['EVO.TOKEN'] = '{{ session('access_token') }}'
     </script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 
 <div class="container p-5">
-    <form method="post" action="./">
-
+    <form>
         <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
         <input type="hidden" name="method" value="Auth@login">
 
@@ -45,6 +43,7 @@
         </button>
     </form>
 </div>
+
 <script>
   document.querySelector('form').addEventListener('submit', e => {
     e.preventDefault()
@@ -62,7 +61,6 @@
         username: e.target.username.value,
         password: e.target.password.value,
         remember: e.target?.remember?.value || true,
-        _token: localStorage['EVO.TOKEN'] || ''
       }),
       headers: {
         'Cache': 'no-cache',

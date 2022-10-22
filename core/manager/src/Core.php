@@ -26,6 +26,11 @@ class Core extends Application
     protected $namespace = 'manager';
 
     /**
+     * @var string
+     */
+    protected string $routeNamespace = 'Manager\\Http\\Controllers';
+
+    /**
      * @var array
      */
     public array $config = [];
@@ -70,5 +75,13 @@ class Core extends Application
             extract($properties);
             eval($plugin['plugincode']);
         }
+    }
+
+    /**
+     * @return string
+     */
+    public function getRouteNamespace(): string
+    {
+        return $this->routeNamespace;
     }
 }

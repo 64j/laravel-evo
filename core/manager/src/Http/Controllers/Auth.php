@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Manager\Http\Controllers;
 
+use Illuminate\Contracts\View\View as ContractView;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth as FacadeAuth;
@@ -13,6 +14,14 @@ use Illuminate\Validation\ValidationException;
 
 class Auth extends Controller
 {
+    /**
+     * @return ContractView
+     */
+    public function formLogin(): ContractView
+    {
+        return $this->view('template.login', []);
+    }
+
     /**
      * @param Request $request
      *
@@ -39,7 +48,7 @@ class Auth extends Controller
                 return [
                     'success' => true,
                     'redirect' => '/',
-                    'token' => $token
+                    'token' => $token,
                 ];
             }
 

@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace Manager\Http\Controllers;
 
 use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\View as ContractView;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as RoutingController;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\View;
@@ -40,41 +40,30 @@ class Controller extends RoutingController
     /**
      * @param Request $request
      *
-     * @return \Illuminate\Contracts\View\View|array
+     * @return ContractView|array
      */
     public function handle(Request $request)
     {
+        $controllerNamespace = $this->app->getRouteNamespace() . '\\';
+
         if ($request->isMethod('post')) {
-            $controller = $request->has('method') ? '\Manager\Http\Controllers\\' . $request->input('method') : null;
+            $controller = $request->has('method') ? $controllerNamespace . $request->input('method') : null;
             $params = $request->input('params');
 
             return $this->app->call($controller, ['params' => $params]);
         }
 
         if ($request->isMethod('put')) {
-            $controller = $request->has('method') ? '\Manager\Http\Controllers\\' . $request->input('method') : null;
+            $controller = $request->has('method') ? $controllerNamespace . $request->input('method') : null;
             $params = $request->input('params');
 
             return $this->app->call($controller, ['params' => $params]);
         }
 
-        $view = View::addNamespace(
-            App::getNamespace(),
-            App::viewPath()
-        );
-
         if (Auth::check()) {
-            return $view->make('manager::template.default', [
-
-            ])
-                ->with([
-                    'controller' => $this,
-                ]);
+            return $this->app->call($controllerNamespace . 'Home@index');
         } else {
-            return $view->make('manager::template.login', [])
-                ->with([
-                    'controller' => $this,
-                ]);
+            return $this->app->call($controllerNamespace . 'Auth@formLogin');
         }
     }
 
@@ -96,5 +85,20 @@ class Controller extends RoutingController
             'meta' => $meta,
             'data' => $data,
         ], $status, $headers);
+    }
+
+    /**
+     * @param string $name
+     * @param $params
+     *
+     * @return ContractView
+     */
+    protected function view(string $name, $params): ContractView
+    {
+        return View::addNamespace(
+            $this->app->getNamespace(),
+            $this->app->viewPath()
+        )
+            ->make('manager::' . $name, $params);
     }
 }

@@ -9,6 +9,7 @@
     <script defer="defer" src="./static/app.js"></script>
     <link href="./static/app.css" rel="stylesheet">
     <script>
+      localStorage['EVO.HOST'] = location.href.replace(location.hash, '').replace('/manager/', '/')
       localStorage['EVO.TOKEN'] = '{{ session('access_token') }}'
     </script>
 </head>

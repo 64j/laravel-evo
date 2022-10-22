@@ -8,17 +8,14 @@ use Illuminate\Support\Facades\Route;
 class RouteServiceProvider extends ServiceProvider
 {
     /**
-     * @var string
-     */
-    protected $namespace = 'Manager\\Http\\Controllers';
-
-    /**
      * Define your route model bindings, pattern filters, etc.
      *
      * @return void
      */
     public function boot()
     {
+        $this->namespace = $this->app->getRouteNamespace();
+
         $this->routes(
             fn() => Route::namespace($this->namespace)
                 ->group(
