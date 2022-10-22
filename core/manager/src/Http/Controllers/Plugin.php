@@ -19,7 +19,7 @@ class Plugin extends Controller
     public function list(array $params = []): JsonResponse
     {
         if (!empty($params['categories'])) {
-            $list = Collection::wrap(Category::getNoCategorySnippets())
+            $list = Collection::wrap(Category::getNoCategoryPlugins())
                 ->merge(
                     Category::query()
                         ->select(['id', 'category as name', 'rank'])

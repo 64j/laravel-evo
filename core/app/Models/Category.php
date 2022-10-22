@@ -60,9 +60,12 @@ class Category extends Model
     }
 
     /**
+     * @param array $ids
+     * @param bool $not
+     *
      * @return Category|null
      */
-    public static function getNoCategoryTvs(): ?Category
+    public static function getNoCategoryTvs(array $ids = [], bool $not = false): ?Category
     {
         $items = SiteTmplvar::query()
             ->select([
@@ -72,6 +75,7 @@ class Category extends Model
                 'locked',
                 'category',
             ])
+            ->where(fn($item) => $ids ? ($not ? $item->whereKeyNot($ids) : $item->whereKey($ids)) : null)
             ->where('category', 0)
             ->get();
 

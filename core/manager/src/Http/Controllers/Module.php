@@ -19,7 +19,7 @@ class Module extends Controller
     public function list(array $params = []): JsonResponse
     {
         if (!empty($params['categories'])) {
-            $list = Collection::wrap(Category::getNoCategorySnippets())
+            $list = Collection::wrap(Category::getNoCategoryModules())
                 ->merge(
                     Category::query()
                         ->select(['id', 'category as name', 'rank'])

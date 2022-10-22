@@ -90,16 +90,16 @@
               <p>{{ lang('template_tv_msg') }}</p>
 
               <div class="row">
-                <template v-if="Object.values(data?.tvs?.selected || {}).length">
+                <template v-if="Object.values(meta?.selected || {}).length">
                   <hr class="bg-secondary m-0">
                   <Panel
-                    :data="data.tvs.selected"
+                    :data="meta.selected"
                     class-name="px-0 mb-4"
                     link-name="TvIndex"
                     link-icon="fa fa-list-alt"
                     checkbox="checkbox"
                     :checkbox-checked="tvSelected"
-                    :hidden-categories="true"
+                    :hidden-categories="false"
                     @action="action"
                   />
                 </template>
@@ -107,25 +107,13 @@
                 <p v-else class="text-danger">{{ lang('template_no_tv') }}</p>
               </div>
 
-              <!--              <ul v-if="Object.values(meta?.tvs?.selected || {}).length" class="list-unstyled">-->
-              <!--                <template v-for="category in meta.tvs.selected">-->
-              <!--                  <li v-for="tv in category.items" :key="`tv`+tv.id" class="form-check">-->
-              <!--                    <input type="checkbox" v-model="tvs" :id="`tv`+tv.id" :value="tv.id" class="form-check-input">-->
-              <!--                    <label :for="`tv`+tv.id" class="form-check-label">-->
-              <!--                      {{ tv.name }} <small>({{ tv.id }})</small> - {{ tv.caption }}-->
-              <!--                      <a href="#">{{ lang('edit') }}</a>-->
-              <!--                    </label>-->
-              <!--                  </li>-->
-              <!--                </template>-->
-              <!--              </ul>-->
-
               <div class="row">
-                <template v-if="Object.values(meta?.tvs || {}).length">
+                <template v-if="Object.values(meta?.unselected || {}).length">
                   <!--                  <hr class="bg-secondary">-->
                   <p class="m-0">{{ lang('template_notassigned_tv') }}</p>
 
                   <Panel
-                    :data="meta.tvs"
+                    :data="meta.unselected"
                     class-name="px-0"
                     link-name="TvIndex"
                     link-icon="fa fa-list-alt"
@@ -253,20 +241,20 @@ export default {
       this.data = result.data
       this.meta = result.meta
 
-      if (this.data?.tvs) {
+      if (this.meta?.selected) {
         this.tvSelected = []
-        for (const i in this.data.tvs) {
-          for (const j in this.data.tvs[i].items) {
-            const tv = this.data.tvs[i].items[j]
+        for (const i in this.meta.selected) {
+          for (const j in this.meta.selected[i].items) {
+            const tv = this.meta.selected[i].items[j]
             this.tvSelected.push(tv.id)
           }
         }
       }
 
-      if (this.meta?.tvs) {
-        for (const i in this.meta.tvs) {
-          for (const j in this.meta.tvs[i].items) {
-            let tv = this.meta.tvs[i].items[j]
+      if (this.meta?.unselected) {
+        for (const i in this.meta.unselected) {
+          for (const j in this.meta.unselected[i].items) {
+            let tv = this.meta.unselected[i].items[j]
             tv.prepend = '<input type="checkbox" name="assignedTv[]" value="' + tv.id + '" class="form-check-input me-2">'
           }
         }

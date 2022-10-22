@@ -6,6 +6,7 @@ namespace Manager\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\SiteTemplate;
+use App\Models\SiteTmplvar;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Collection;
 
@@ -59,16 +60,18 @@ class Template extends Controller
 
         /** @var SiteTemplate $template */
         $template = SiteTemplate::query()
-            ->with('tvs', fn($query) => $query->select([
-                'id',
-                'name',
-                'caption',
-                'description',
-                'category',
-            ]))
             ->findOrFail($params['id']);
 
-        $tvs = Collection::wrap(Category::getNoCategoryTvs())
+        $tvIds = SiteTmplvar::query()
+            ->whereHas(
+                'tmplvarTemplate',
+                fn($query) => $query->where('templateid', $template->getKey())
+            )
+            ->get()
+            ->pluck('id')
+            ->toArray();
+
+        $selected = Collection::wrap(Category::getNoCategoryTvs($tvIds))
             ->merge(
                 Category::query()
                     ->select([
@@ -78,7 +81,29 @@ class Template extends Controller
                     ])
                     ->with(
                         'tvs',
-                        fn($query) => $query->whereKeyNot($template->tvs->pluck('id'))
+                        fn($query) => $query->whereKey($tvIds)
+                    )
+                    ->whereHas('tvs')
+                    ->orderBy('rank')
+                    ->get()
+                    ->filter(fn(Category $category) => $category->tvs->isNotEmpty())
+                    ->each(function (Category $category) {
+                        $category->setAttribute('items', $category->getAttribute('tvs'));
+                        unset($category->tvs);
+                    })
+            );
+
+        $unselected = Collection::wrap(Category::getNoCategoryTvs($tvIds, true))
+            ->merge(
+                Category::query()
+                    ->select([
+                        'id',
+                        'category as name',
+                        'rank',
+                    ])
+                    ->with(
+                        'tvs',
+                        fn($query) => $query->whereKeyNot($tvIds)
                     )
                     ->whereHas('tvs')
                     ->orderBy('rank')
@@ -91,7 +116,8 @@ class Template extends Controller
             );
 
         return $this->ok($template, [
-            'tvs' => $tvs,
+            'selected' => $selected,
+            'unselected' => $unselected,
         ]);
     }
 }
