@@ -50,4 +50,48 @@ class Template extends Controller
 
         return $this->ok($list);
     }
+
+    public function read(array $params = []): JsonResponse
+    {
+        if (empty($params['id'])) {
+            return $this->ok();
+        }
+
+        /** @var SiteTemplate $template */
+        $template = SiteTemplate::query()
+            ->with('tvs', fn($query) => $query->select([
+                'id',
+                'name',
+                'caption',
+                'description',
+                'category',
+            ]))
+            ->findOrFail($params['id']);
+
+        $tvs = Collection::wrap(Category::getNoCategoryTvs())
+            ->merge(
+                Category::query()
+                    ->select([
+                        'id',
+                        'category as name',
+                        'rank',
+                    ])
+                    ->with(
+                        'tvs',
+                        fn($query) => $query->whereKeyNot($template->tvs->pluck('id'))
+                    )
+                    ->whereHas('tvs')
+                    ->orderBy('rank')
+                    ->get()
+                    ->filter(fn(Category $category) => $category->tvs->isNotEmpty())
+                    ->each(function (Category $category) {
+                        $category->setAttribute('items', $category->getAttribute('tvs'));
+                        unset($category->tvs);
+                    })
+            );
+
+        return $this->ok($template, [
+            'tvs' => $tvs,
+        ]);
+    }
 }

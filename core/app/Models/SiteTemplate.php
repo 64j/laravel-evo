@@ -4,8 +4,13 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
+/**
+ * @property SiteTmplvar[]|Collection $tvs
+ */
 class SiteTemplate extends Model
 {
     public const CREATED_AT = 'createdon';
@@ -26,7 +31,7 @@ class SiteTemplate extends Model
         'locked' => 'int',
         'selectable' => 'int',
         'createdon' => 'int',
-        'editedon' => 'int'
+        'editedon' => 'int',
     ];
 
     /**
@@ -42,6 +47,26 @@ class SiteTemplate extends Model
         'template_type',
         'content',
         'locked',
-        'selectable'
+        'selectable',
     ];
+
+    /**
+     * @return BelongsToMany
+     */
+    public function tvs(): BelongsToMany
+    {
+        return $this->belongsToMany(
+            SiteTmplvar::class,
+            (new SiteTmplvarTemplate())->getTable(),
+            'templateid',
+            'tmplvarid'
+        )
+            ->withPivot('rank')
+            ->orderBy('pivot_rank');
+    }
+
+    public function tvsCategories()
+    {
+        return [];
+    }
 }

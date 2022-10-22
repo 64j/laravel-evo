@@ -145,7 +145,7 @@
           <ul>
             <li v-if="hasPermissions('edit_user')">
               <router-link :to="{ name: 'UserList' }">
-                <i class="fa fa-user-circle"></i> {{ lang('user_management_title') }}
+                <i class="fa fa-user-circle"></i> {{ lang('users') }}
               </router-link>
             </li>
             <li v-if="hasPermissions('edit_role')">
@@ -160,8 +160,7 @@
             </li>
           </ul>
         </li>
-        <li class="parent"
-            v-if="hasPermissions('empty_cache')">
+        <li class="parent" v-if="hasPermissions('empty_cache')">
           <a>{{ lang('tools') }}</a>
           <ul>
             <li>
@@ -195,8 +194,7 @@
             </li>
           </ul>
         </li>
-        <li class="parent"
-            v-if="hasPermissions(['settings', 'view_eventlog', 'logs', 'help'])">
+        <li class="parent" v-if="hasPermissions(['settings', 'view_eventlog', 'logs', 'help'])">
           <a><i class="fa fa-cogs m-0"></i></a>
           <ul>
             <li v-if="hasPermissions('settings')">

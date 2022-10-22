@@ -35,6 +35,13 @@
               </div>
 
               <div class="row form-row mb-1">
+                <label class="col-md-3 col-lg-2">{{ lang('alias') }}</label>
+                <div class="col-md-9 col-lg-10">
+                  <input v-model="data.templatealias" type="text" maxlength="255" class="form-control" onchange="documentDirty=true;">
+                </div>
+              </div>
+
+              <div class="row form-row mb-1">
                 <label class="col-md-3 col-lg-2">{{ lang('template_desc') }}</label>
                 <div class="col-md-9 col-lg-10">
                   <input v-model="data.description" type="text" maxlength="255" class="form-control" onchange="documentDirty=true;">
@@ -83,10 +90,10 @@
               <p>{{ lang('template_tv_msg') }}</p>
 
               <div class="row">
-                <template v-if="Object.values(meta?.tvs?.selected || {}).length">
+                <template v-if="Object.values(data?.tvs?.selected || {}).length">
                   <hr class="bg-secondary m-0">
                   <Panel
-                    :data="meta.tvs.selected"
+                    :data="data.tvs.selected"
                     class-name="px-0 mb-4"
                     link-name="TvIndex"
                     link-icon="fa fa-list-alt"
@@ -113,12 +120,12 @@
               <!--              </ul>-->
 
               <div class="row">
-                <template v-if="Object.values(meta?.tvs?.unselected || {}).length">
+                <template v-if="Object.values(meta?.tvs || {}).length">
                   <!--                  <hr class="bg-secondary">-->
                   <p class="m-0">{{ lang('template_notassigned_tv') }}</p>
 
                   <Panel
-                    :data="meta.tvs.unselected"
+                    :data="meta.tvs"
                     class-name="px-0"
                     link-name="TvIndex"
                     link-icon="fa fa-list-alt"
@@ -246,20 +253,20 @@ export default {
       this.data = result.data
       this.meta = result.meta
 
-      if (this.meta?.tvs?.selected) {
+      if (this.data?.tvs) {
         this.tvSelected = []
-        for (const i in this.meta.tvs.selected) {
-          for (const j in this.meta.tvs.selected[i].items) {
-            const tv = this.meta.tvs.selected[i].items[j]
+        for (const i in this.data.tvs) {
+          for (const j in this.data.tvs[i].items) {
+            const tv = this.data.tvs[i].items[j]
             this.tvSelected.push(tv.id)
           }
         }
       }
 
-      if (this.meta?.tvs?.unselected) {
-        for (const i in this.meta.tvs.unselected) {
-          for (const j in this.meta.tvs.unselected[i].items) {
-            let tv = this.meta.tvs.unselected[i].items[j]
+      if (this.meta?.tvs) {
+        for (const i in this.meta.tvs) {
+          for (const j in this.meta.tvs[i].items) {
+            let tv = this.meta.tvs[i].items[j]
             tv.prepend = '<input type="checkbox" name="assignedTv[]" value="' + tv.id + '" class="form-check-input me-2">'
           }
         }
