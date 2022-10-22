@@ -46,51 +46,50 @@
     </form>
 </div>
 <script>
-  // document.querySelector('form').addEventListener('submit', e => {
-  //   e.preventDefault()
-  //
-  //   console.log(e.target.querySelectorAll('.text-danger'))
-  //
-  //   e.target.querySelectorAll('.text-danger').forEach(el => {
-  //     el.parentElement.removeChild(el)
-  //   })
-  //
-  //   fetch(e.target.action, {
-  //     method: 'post',
-  //     body: JSON.stringify({
-  //       method: 'Auth@login',
-  //       username: e.target.username.value,
-  //       password: e.target.password.value,
-  //       remember: e.target?.remember?.value || true,
-  //       _token: localStorage['EVO.TOKEN'] || ''
-  //     }),
-  //     headers: {
-  //       'Cache': 'no-cache',
-  //       'Accept': 'application/json',
-  //       'Content-Type': 'application/json',
-  //       'X-CSRF-TOKEN': localStorage['EVO.TOKEN'] || ''
-  //     },
-  //     credentials: 'same-origin'
-  //   }).then(response => response.json()).then(data => {
-  //     if (data.success) {
-  //       if (data.redirect) {
-  //         return location.href = '.' + data.redirect
-  //       }
-  //
-  //       return location.reload()
-  //     }
-  //
-  //     if (data.errors) {
-  //       for (let i in data.errors) {
-  //         let el = e.target.querySelector('[name="' + i + '"]')
-  //         if (el) {
-  //           el.parentElement.insertAdjacentHTML('beforeend',
-  //             '<span class="text-danger text-left">' + data.errors[i] + '</span>')
-  //         }
-  //       }
-  //     }
-  //   })
-  // })
+  document.querySelector('form').addEventListener('submit', e => {
+    e.preventDefault()
+
+    console.log(e.target.querySelectorAll('.text-danger'))
+
+    e.target.querySelectorAll('.text-danger').forEach(el => {
+      el.parentElement.removeChild(el)
+    })
+
+    fetch(e.target.action, {
+      method: 'put',
+      body: JSON.stringify({
+        method: 'Auth@login',
+        username: e.target.username.value,
+        password: e.target.password.value,
+        remember: e.target?.remember?.value || true,
+        _token: localStorage['EVO.TOKEN'] || ''
+      }),
+      headers: {
+        'Cache': 'no-cache',
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      credentials: 'same-origin'
+    }).then(response => response.json()).then(data => {
+      if (data.success) {
+        if (data.redirect) {
+          return location.href = '.' + data.redirect
+        }
+
+        return location.reload()
+      }
+
+      if (data.errors) {
+        for (let i in data.errors) {
+          let el = e.target.querySelector('[name="' + i + '"]')
+          if (el) {
+            el.parentElement.insertAdjacentHTML('beforeend',
+              '<span class="text-danger text-left">' + data.errors[i] + '</span>')
+          }
+        }
+      }
+    })
+  })
 </script>
 </body>
 </html>

@@ -51,6 +51,13 @@ class Controller extends RoutingController
             return $this->app->call($controller, ['params' => $params]);
         }
 
+        if ($request->isMethod('put')) {
+            $controller = $request->has('method') ? '\Manager\Http\Controllers\\' . $request->input('method') : null;
+            $params = $request->input('params');
+
+            return $this->app->call($controller, ['params' => $params]);
+        }
+
         $view = View::addNamespace(
             App::getNamespace(),
             App::viewPath()

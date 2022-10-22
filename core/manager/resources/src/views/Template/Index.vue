@@ -217,25 +217,25 @@ export default {
       }
     },
     create () {
-      http.post(this.controller + '@create', { ...this.data, tvSelected: this.tvSelected }).then(result => {
+      http.create(this.controller, { ...this.data, tvSelected: this.tvSelected }).then(result => {
         this.setData(result)
         this.action('refresh')
       })
     },
     read () {
-      http.post(this.controller + '@read', this.data).then(result => {
+      http.read(this.controller, this.data).then(result => {
         this.setData(result)
       })
     },
     update () {
-      http.post(this.controller + '@update', { ...this.data, tvSelected: this.tvSelected }).then(result => {
+      http.update(this.controller, { ...this.data, tvSelected: this.tvSelected }).then(result => {
         this.setData(result)
         this.action('refresh')
       })
     },
     delete () {
       if (confirm(this.$store.state['Settings'].lang('confirm_delete_template'))) {
-        http.post(this.controller + '@delete', this.data).then(result => {
+        http.delete(this.controller, this.data).then(result => {
           if (result) {
             this.action('cancel')
           }

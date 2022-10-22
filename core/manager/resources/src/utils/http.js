@@ -82,6 +82,10 @@ export default {
     return this.fetch('post', method + '@delete', data)
   },
 
+  copy (method, data) {
+    return this.fetch('post', method + '@copy', data)
+  },
+
   list (method, data) {
     return this.fetch('post', method + '@list', data)
   }
