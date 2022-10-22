@@ -5,18 +5,21 @@ declare(strict_types=1);
 namespace Manager\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\SiteHtmlsnippet;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Collection;
 
 class Snippet extends Controller
 {
     /**
+     * @param array $params
+     *
      * @return JsonResponse
      */
-    public function list(): JsonResponse
+    public function list(array $params = []): JsonResponse
     {
-        return $this->ok(
-            Collection::wrap(Category::getNoCategorySnippets())
+        if (!empty($params['categories'])) {
+            $list = Collection::wrap(Category::getNoCategorySnippets())
                 ->merge(
                     Category::query()
                         ->select(['id', 'category as name', 'rank'])
@@ -30,7 +33,21 @@ class Snippet extends Controller
 
                             return $item;
                         })
-                )
-        );
+                );
+        } else {
+            $list = SiteHtmlsnippet::query()
+                ->select([
+                    'id',
+                    'name',
+                    'description',
+                    'locked',
+                    'disabled',
+                    'category',
+                ])
+                ->orderBy('name')
+                ->get();
+        }
+
+        return $this->ok($list);
     }
 }

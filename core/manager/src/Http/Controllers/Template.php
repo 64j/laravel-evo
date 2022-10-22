@@ -5,18 +5,21 @@ declare(strict_types=1);
 namespace Manager\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\SiteTemplate;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Collection;
 
 class Template extends Controller
 {
     /**
+     * @param array $params
+     *
      * @return JsonResponse
      */
-    public function list(): JsonResponse
+    public function list(array $params = []): JsonResponse
     {
-        return $this->ok(
-            Collection::wrap(Category::getNoCategoryTemplates())
+        if (!empty($params['categories'])) {
+            $list = Collection::wrap(Category::getNoCategoryTemplates())
                 ->merge(
                     Category::query()
                         ->select(['id', 'category as name', 'rank'])
@@ -30,7 +33,21 @@ class Template extends Controller
 
                             return $item;
                         })
-                )
-        );
+                );
+        } else {
+            $list = SiteTemplate::query()
+                ->select([
+                    'id',
+                    'templatename as name',
+                    'templatealias as alias',
+                    'description',
+                    'locked',
+                    'category',
+                ])
+                ->orderBy('templatename')
+                ->get();
+        }
+
+        return $this->ok($list);
     }
 }

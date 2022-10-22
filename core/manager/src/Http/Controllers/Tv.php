@@ -5,18 +5,21 @@ declare(strict_types=1);
 namespace Manager\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\SiteTmplvar;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Collection;
 
 class Tv extends Controller
 {
     /**
+     * @param array $params
+     *
      * @return JsonResponse
      */
-    public function list(): JsonResponse
+    public function list(array $params = []): JsonResponse
     {
-        return $this->ok(
-            Collection::wrap(Category::getNoCategoryTvs())
+        if (!empty($params['categories'])) {
+            $list = Collection::wrap(Category::getNoCategoryTvs())
                 ->merge(
                     Category::query()
                         ->select(['id', 'category as name', 'rank'])
@@ -30,7 +33,20 @@ class Tv extends Controller
 
                             return $item;
                         })
-                )
-        );
+                );
+        } else {
+            $list = SiteTmplvar::query()
+                ->select([
+                    'id',
+                    'name',
+                    'description',
+                    'locked',
+                    'category',
+                ])
+                ->orderBy('name')
+                ->get();
+        }
+
+        return $this->ok($list);
     }
 }
