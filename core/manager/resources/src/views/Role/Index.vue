@@ -105,21 +105,21 @@ export default {
       }
     },
     create() {
-      http.post(this.controller + '@create', this.data).then(this.setData)
+      http.create(this.controller, this.data).then(this.setData)
     },
     read() {
-      http.post(this.controller + '@read', this.data).then(result => {
+      http.read(this.controller, this.data).then(result => {
         this.setData(result)
       })
     },
     update() {
-      http.post(this.controller + '@update', this.data).then(result => {
+      http.update(this.controller, this.data).then(result => {
         this.setData(result)
       })
     },
     delete() {
       if (confirm(this.$store.state['Settings'].lang('confirm_delete_role'))) {
-        http.post(this.controller + '@delete', { id: this.data.id }).then(result => {
+        http.delete(this.controller, { id: this.data.id }).then(result => {
           if (result) {
             this.action('cancel')
           }

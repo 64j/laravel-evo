@@ -144,7 +144,7 @@ export default {
       }
     },
     create () {
-      http.post(this.controller + '@create', this.data).then(result => {
+      http.create(this.controller, this.data).then(result => {
         if (result.data.id) {
           this.$emit('replaceTab', { params: { id: result.data.id } })
         } else {
@@ -156,12 +156,12 @@ export default {
       })
     },
     read () {
-      http.post(this.controller + '@read', this.data).then(result => {
+      http.read(this.controller, this.data).then(result => {
         this.setData(result)
       })
     },
     update () {
-      http.post(this.controller + '@update', this.data).then(result => {
+      http.update(this.controller, this.data).then(result => {
         this.setData(result)
         this.$emit('titleTab', this.title)
         this.action('refresh')
@@ -170,7 +170,7 @@ export default {
     },
     delete () {
       if (confirm(this.$store.state['Settings'].lang('confirm_delete_htmlsnippet'))) {
-        http.post(this.controller + '@delete', this.data).then(result => {
+        http.delete(this.controller, this.data).then(result => {
           if (result) {
             this.action('cancel')
           }

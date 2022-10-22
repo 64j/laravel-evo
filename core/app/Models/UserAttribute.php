@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 /**
  * @property int $id
@@ -40,6 +41,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property string $comment
  * @property int $createdon
  * @property int $editedon
+ * @property User $user
  *
  * Virtual
  * @property-read Carbon $created_at
@@ -66,7 +68,7 @@ class UserAttribute extends Model
         'blockeduntil' => 'int',
         'blockedafter' => 'int',
         'logincount' => 'int',
-        'lastlogin' => 'int',
+        'lastlogin' => 'datetime:d-m-Y H:i',
         'thislogin' => 'int',
         'failedlogincount' => 'int',
         'dob' => 'int',
@@ -137,5 +139,13 @@ class UserAttribute extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'internalKey', 'id');
+    }
+
+    /**
+     * @return HasOne
+     */
+    public function userRole(): HasOne
+    {
+        return $this->hasOne(UserRole::class, 'id', 'role');
     }
 }

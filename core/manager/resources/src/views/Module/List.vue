@@ -20,7 +20,7 @@ export default {
   components: { Panel },
   data () {
     this.element = 'ModuleIndex'
-    this.controller = 'Module@list'
+    this.controller = 'Module'
 
     return {
       data: null,
@@ -49,13 +49,13 @@ export default {
     }
   },
   mounted () {
-    http.post(this.controller, { categories: true }).then(result => this.data = result.data)
+    http.list(this.controller, { categories: true }).then(result => this.data = result.data)
   },
   methods: {
     action (action, item, category) {
       switch (action) {
         case 'copy':
-          http.post(this.controller + '@copy', item).then(result => {
+          http.copy(this.controller, item).then(result => {
             if (result) {
               this.list()
             }
@@ -63,7 +63,7 @@ export default {
           break
 
         case 'delete':
-          http.post(this.controller + '@delete', item).then(result => {
+          http.delete(this.controller, item).then(result => {
             if (result) {
               delete category.items[item.id]
               this.$root.$refs.Layout.$refs.MultiTabs.closeTab(this.$router.resolve({ name: this.element, params: { id: item.id } }))
