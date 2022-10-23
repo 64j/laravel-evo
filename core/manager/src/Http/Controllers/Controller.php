@@ -83,19 +83,4 @@ class Controller extends RoutingController
             'data' => $data,
         ], $status, $headers);
     }
-
-    /**
-     * @param string $name
-     * @param $params
-     *
-     * @return ContractView
-     */
-    protected function view(string $name, $params): ContractView
-    {
-        return View::addNamespace(
-            $this->app->getNamespace(),
-            $this->app->viewPath()
-        )
-            ->make('manager::' . $name, $params);
-    }
 }

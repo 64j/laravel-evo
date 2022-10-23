@@ -19,7 +19,7 @@ class Auth extends Controller
      */
     public function formLogin(): ContractView
     {
-        return $this->view('template.login', []);
+        return view('template.login', []);
     }
 
     /**

@@ -14,10 +14,10 @@ class Kernel extends HttpKernel
      * @var array<int, class-string|string>
      */
     protected $middleware = [
-        \Manager\Http\Middleware\HandleCors::class,
-//        \Illuminate\Session\Middleware\StartSession::class,
-//        \Illuminate\Session\Middleware\AuthenticateSession::class,
-//        \Illuminate\View\Middleware\ShareErrorsFromSession::class,
+        \Fruitcake\Cors\HandleCors::class,
+        \Illuminate\Session\Middleware\StartSession::class,
+        \Illuminate\Session\Middleware\AuthenticateSession::class,
+        \Illuminate\View\Middleware\ShareErrorsFromSession::class,
 //        \Manager\Http\Middleware\TrimStrings::class,
 //        \Manager\Http\Middleware\Authenticate::class,
 //        \Manager\Http\Middleware\EncryptCookies::class,

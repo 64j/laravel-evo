@@ -9,17 +9,12 @@ use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Manager\Events\OnLoadSettings;
-use Manager\Traits\PathsTrait;
-use Manager\Traits\ProvidersTrait;
 
 /**
  * @property Request $request
  */
 class Core extends Application
 {
-    use PathsTrait;
-    use ProvidersTrait;
-
     /**
      * @var string
      */
@@ -34,6 +29,24 @@ class Core extends Application
      * @var array
      */
     public array $config = [];
+
+    /**
+     * @return string
+     */
+    public function getRouteNamespace(): string
+    {
+        return $this->routeNamespace;
+    }
+
+    /**
+     * Get the path to the environment file directory.
+     *
+     * @return string
+     */
+    public function environmentPath(): string
+    {
+        return $this->environmentPath ?: dirname($this->basePath);
+    }
 
     /**
      * @return array
@@ -75,13 +88,5 @@ class Core extends Application
             extract($properties);
             eval($plugin['plugincode']);
         }
-    }
-
-    /**
-     * @return string
-     */
-    public function getRouteNamespace(): string
-    {
-        return $this->routeNamespace;
     }
 }

@@ -13,6 +13,6 @@ class Home extends Controller
      */
     public function index(): ContractView
     {
-        return $this->view('template.default', []);
+        return view('template.default', []);
     }
 }
