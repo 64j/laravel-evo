@@ -17,6 +17,13 @@
         .input-list { display: none; z-index: 10; }
         .input-list > div:hover { background: var(--bs-primary); color: var(--bs-light); }
         .input-list-remove { cursor: pointer }
+        input:-webkit-autofill,
+        input:-webkit-autofill:hover,
+        input:-webkit-autofill:focus,
+        input:-webkit-autofill:active {
+            -webkit-box-shadow: 0 0 0 2rem black inset !important;
+            -webkit-text-fill-color: #fff !important;
+        }
     </style>
 </head>
 <body>
