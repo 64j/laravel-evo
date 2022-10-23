@@ -1,5 +1,5 @@
-import store from '@/store'
-import router from '@/router'
+// import store from '@/store'
+// import router from '@/router'
 import { toRaw } from 'vue'
 
 export default {
@@ -34,15 +34,15 @@ export default {
       return response.json()
     }
 
-    if (response.status !== 404) {
-      if (location.hash !== '#/login') {
-        store.dispatch('Settings/del').then(() => {
-          store.dispatch('MultiTabs/delAllTabs').then(() => {
-            router.push({ name: 'AuthLogin' })
-          })
-        })
-      }
-    }
+    // if (response.status !== 404) {
+    //   if (location.hash !== '#/login') {
+    //     store.dispatch('Settings/del').then(() => {
+    //       store.dispatch('MultiTabs/delAllTabs').then(() => {
+    //         router.push({ name: 'AuthLogin' })
+    //       })
+    //     })
+    //   }
+    // }
 
     return {}
   },
