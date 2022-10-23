@@ -2,10 +2,7 @@
 
 namespace Manager\Exceptions;
 
-use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
-use Illuminate\Http\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -40,20 +37,5 @@ class Handler extends ExceptionHandler
         $this->reportable(function (Throwable $e) {
             //
         });
-    }
-
-    /**
-     * Convert an authentication exception into a response.
-     *
-     * @param Request $request
-     * @param AuthenticationException $exception
-     *
-     * @return Response
-     */
-    protected function unauthenticated($request, AuthenticationException $exception): Response
-    {
-        return $this->shouldReturnJson($request, $exception)
-            ? response()->json(['message' => $exception->getMessage()], 401)
-            : response($exception->redirectTo());
     }
 }

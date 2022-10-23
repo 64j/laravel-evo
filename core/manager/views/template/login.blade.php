@@ -167,6 +167,7 @@
         password: e.target.password.value,
         remember: e.target.remember.value || true,
         host: e.target?.host?.value || '',
+        _token: '{{ csrf_token() }}'
       }),
       headers: {
         'Cache': 'no-cache',

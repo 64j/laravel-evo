@@ -23,10 +23,11 @@
     19 => 'Illuminate\\Translation\\TranslationServiceProvider',
     20 => 'Illuminate\\Validation\\ValidationServiceProvider',
     21 => 'Illuminate\\View\\ViewServiceProvider',
-    22 => 'App\\Providers\\AppServiceProvider',
-    23 => 'App\\Providers\\AuthServiceProvider',
-    24 => 'Manager\\Providers\\EventServiceProvider',
-    25 => 'Manager\\Providers\\RouteServiceProvider',
+    22 => 'Fruitcake\\Cors\\CorsServiceProvider',
+    23 => 'Manager\\Providers\\AppServiceProvider',
+    24 => 'Manager\\Providers\\AuthServiceProvider',
+    25 => 'Manager\\Providers\\EventServiceProvider',
+    26 => 'Manager\\Providers\\RouteServiceProvider',
   ),
   'eager' => 
   array (
@@ -40,10 +41,11 @@
     7 => 'Illuminate\\Pagination\\PaginationServiceProvider',
     8 => 'Illuminate\\Session\\SessionServiceProvider',
     9 => 'Illuminate\\View\\ViewServiceProvider',
-    10 => 'App\\Providers\\AppServiceProvider',
-    11 => 'App\\Providers\\AuthServiceProvider',
-    12 => 'Manager\\Providers\\EventServiceProvider',
-    13 => 'Manager\\Providers\\RouteServiceProvider',
+    10 => 'Fruitcake\\Cors\\CorsServiceProvider',
+    11 => 'Manager\\Providers\\AppServiceProvider',
+    12 => 'Manager\\Providers\\AuthServiceProvider',
+    13 => 'Manager\\Providers\\EventServiceProvider',
+    14 => 'Manager\\Providers\\RouteServiceProvider',
   ),
   'deferred' => 
   array (

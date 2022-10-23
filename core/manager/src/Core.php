@@ -8,6 +8,7 @@ use App\Models\SystemSetting;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Log;
 use Manager\Events\OnLoadSettings;
 
 /**

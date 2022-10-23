@@ -7,8 +7,6 @@ use Illuminate\Auth\AuthenticationException;
 use Illuminate\Auth\Middleware\Authenticate as Middleware;
 use Illuminate\Contracts\Auth\Factory as Auth;
 use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth as FacadeAuth;
 use Manager\Core;
 
 class Authenticate extends Middleware

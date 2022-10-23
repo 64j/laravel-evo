@@ -15,31 +15,30 @@ class Kernel extends HttpKernel
      */
     protected $middleware = [
         \Fruitcake\Cors\HandleCors::class,
-        \Illuminate\Session\Middleware\StartSession::class,
-        \Illuminate\Session\Middleware\AuthenticateSession::class,
-        \Illuminate\View\Middleware\ShareErrorsFromSession::class,
-//        \Manager\Http\Middleware\TrimStrings::class,
-//        \Manager\Http\Middleware\Authenticate::class,
-//        \Manager\Http\Middleware\EncryptCookies::class,
-//        \Manager\Http\Middleware\VerifyCsrfToken::class,
+        //        \Illuminate\Session\Middleware\StartSession::class,
+        //        \Illuminate\Session\Middleware\AuthenticateSession::class,
+        //        \Illuminate\View\Middleware\ShareErrorsFromSession::class,
+        //        \Manager\Http\Middleware\Authenticate::class,
+        //        \Manager\Http\Middleware\EncryptCookies::class,
+        //        \Manager\Http\Middleware\VerifyCsrfToken::class,
     ];
 
     protected $middlewareGroups = [
         'web' => [
+            \App\Http\Middleware\EncryptCookies::class,
+            //\Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
             \Illuminate\Session\Middleware\StartSession::class,
             \Illuminate\Session\Middleware\AuthenticateSession::class,
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
+            \App\Http\Middleware\VerifyCsrfToken::class,
+            \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
         'api' => [
-            \Manager\Http\Middleware\Authenticate::class,
+            //\Manager\Http\Middleware\Authenticate::class,
         ]
     ];
 
     protected $routeMiddleware = [
-        'cors' => \Manager\Http\Middleware\HandleCors::class,
         'auth' => \Manager\Http\Middleware\Authenticate::class,
-        'session.start' => \Illuminate\Session\Middleware\StartSession::class,
-        'session.auth' => \Illuminate\Session\Middleware\AuthenticateSession::class,
-        'session.errors' => \Illuminate\View\Middleware\ShareErrorsFromSession::class,
     ];
 }

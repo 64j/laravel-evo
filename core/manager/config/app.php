@@ -165,12 +165,13 @@ return [
         /*
          * Package Service Providers...
          */
+        Fruitcake\Cors\CorsServiceProvider::class,
 
         /*
          * Application Service Providers...
          */
-        App\Providers\AppServiceProvider::class,
-        App\Providers\AuthServiceProvider::class,
+        Manager\Providers\AppServiceProvider::class,
+        Manager\Providers\AuthServiceProvider::class,
         // App\Providers\BroadcastServiceProvider::class,
         Manager\Providers\EventServiceProvider::class,
         Manager\Providers\RouteServiceProvider::class,
