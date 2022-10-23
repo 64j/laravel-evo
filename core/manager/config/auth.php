@@ -40,6 +40,18 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+
+        'manager' => [
+            'driver' => 'token',
+            'provider' => 'users',
+            'hash' => true,
+            'input_key' => 'access_token',
+            'storage_key' => 'access_token',
+            'except_methods' => [
+                'Auth@login',
+                'Auth@logout',
+            ],
+        ],
     ],
 
     /*

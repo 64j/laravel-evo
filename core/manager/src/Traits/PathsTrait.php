@@ -13,9 +13,23 @@ trait PathsTrait
      */
     public function path($path = ''): string
     {
-        $appPath = $this->appPath ?: $this->basePath . DIRECTORY_SEPARATOR . $this->namespace;
+        $appPath = $this->appPath ?: $this->basePath(DIRECTORY_SEPARATOR . $this->getNamespace());
 
         return $appPath . ($path ? DIRECTORY_SEPARATOR . $path : $path);
+    }
+
+    /**
+     * Get the path to the application configuration files.
+     *
+     * @param string $path
+     *
+     * @return string
+     */
+    public function configPath($path = ''): string
+    {
+        return $this->basePath(
+            $this->getNamespace() . DIRECTORY_SEPARATOR . 'config' . ($path ? DIRECTORY_SEPARATOR . $path : $path)
+        );
     }
 
     /**
@@ -26,7 +40,7 @@ trait PathsTrait
     public function resourcePath($path = ''): string
     {
         return $this->basePath(
-            $this->namespace . DIRECTORY_SEPARATOR . 'resources' . ($path ? DIRECTORY_SEPARATOR . $path : $path)
+            $this->getNamespace() . DIRECTORY_SEPARATOR . 'resources' . ($path ? DIRECTORY_SEPARATOR . $path : $path)
         );
     }
 
@@ -36,7 +50,7 @@ trait PathsTrait
     public function storagePath(): string
     {
         return $this->storagePath
-            ?: $this->basePath($this->namespace . DIRECTORY_SEPARATOR . 'storage');
+            ?: $this->basePath($this->getNamespace() . DIRECTORY_SEPARATOR . 'storage');
     }
 
     /**
@@ -47,7 +61,7 @@ trait PathsTrait
     public function viewPath($path = ''): string
     {
         return $this->basePath(
-            $this->namespace . DIRECTORY_SEPARATOR . 'views' . ($path ? DIRECTORY_SEPARATOR . $path : $path)
+            $this->getNamespace() . DIRECTORY_SEPARATOR . 'views' . ($path ? DIRECTORY_SEPARATOR . $path : $path)
         );
     }
 
