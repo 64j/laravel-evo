@@ -1,3 +1,5 @@
+import store from '@/store'
+import router from '@/router'
 import { toRaw } from 'vue'
 
 export default {
@@ -30,6 +32,16 @@ export default {
   handlerResponse (response) {
     if (response.ok) {
       return response.json()
+    }
+
+    if (response.status !== 404) {
+      if (location.hash !== '#/login') {
+        store.dispatch('Settings/del').then(() => {
+          store.dispatch('MultiTabs/delAllTabs').then(() => {
+            router.push({ name: 'AuthLogin' })
+          })
+        })
+      }
     }
 
     return {}
@@ -88,5 +100,17 @@ export default {
 
   list (method, data) {
     return this.fetch('post', method + '@list', data)
+  },
+
+  login (data) {
+    data = Object.assign(data, {
+      method: 'Auth@login'
+    })
+    return fetch(this.setUrl(), {
+      method: 'put',
+      body: this.setBody(data || ''),
+      headers: this.setHeaders(),
+      credentials: 'same-origin'
+    }).then(this.handlerResponse).catch(this.handlerCatch)
   }
 }

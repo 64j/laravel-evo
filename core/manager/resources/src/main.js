@@ -12,9 +12,9 @@ store.dispatch('Settings/get').then(settings => {
     methods: {
       hasPermissions (permissions) {
         if (typeof permissions === 'object') {
-          return permissions.some(permission => !settings.permissions?.[permission].disabled || false)
+          return permissions.some(permission => !settings.permissions?.[permission]?.disabled || false)
         } else {
-          return !settings.permissions?.[permissions].disabled || false
+          return !settings.permissions?.[permissions]?.disabled || false
         }
       },
       config (key) {

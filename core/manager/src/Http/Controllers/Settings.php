@@ -59,7 +59,7 @@ class Settings extends Controller
 
         unset($attributes->user);
 
-        return $attributes->toArray();
+        return $attributes->setHidden([])->toArray();
     }
 
     /**

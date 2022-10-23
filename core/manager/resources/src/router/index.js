@@ -1,5 +1,5 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
-//import store from '@/store'
+// import store from '@/store'
 
 const routes = [
   {
@@ -136,6 +136,14 @@ const routes = [
     name: 'HelpIndex',
     component: () => import('@/views/Help/Index')
   },
+  // {
+  //   path: '/login',
+  //   name: 'AuthLogin',
+  //   component: () => import('@/views/Auth/Login'),
+  //   meta: {
+  //     noTab: true
+  //   }
+  // },
   {
     path: '/logout',
     name: 'AuthLogout',
