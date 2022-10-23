@@ -159,12 +159,6 @@
 
     host.value = (new URL(host.value)).origin + '/'
 
-    if (!hosts[host.value]) {
-      hosts[host.value] = host.value
-    }
-    localStorage['EVO.HOSTS'] = JSON.stringify(hosts)
-    listInit()
-
     fetch(host.value + 'manager/', {
       method: 'put',
       body: JSON.stringify({
