@@ -7,11 +7,12 @@ use Illuminate\Auth\AuthenticationException;
 use Illuminate\Auth\Middleware\Authenticate as Middleware;
 use Illuminate\Contracts\Auth\Factory as Auth;
 use Illuminate\Contracts\Foundation\Application;
+use Manager\Core;
 
 class Authenticate extends Middleware
 {
     /**
-     * @var Application
+     * @var Application|Core
      */
     protected Application $app;
 
@@ -41,7 +42,7 @@ class Authenticate extends Middleware
             true
         )
         ) {
-            return $this->app->call('\Manager\Http\Controllers\\' . $request->input('method'));
+            return $this->app->call($this->app->getRouteNamespace() . '\\' . $request->input('method'));
         }
 
         return parent::handle($request, $next, ...$guards);
