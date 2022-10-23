@@ -12,7 +12,7 @@
 */
 
 $app = new Manager\Core(
-    $_ENV['APP_BASE_PATH'] ?? dirname(__DIR__)
+    dirname(__DIR__)
 );
 
 /*
