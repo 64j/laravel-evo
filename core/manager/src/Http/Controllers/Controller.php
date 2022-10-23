@@ -46,14 +46,7 @@ class Controller extends RoutingController
     {
         $controllerNamespace = $this->app->getRouteNamespace() . '\\';
 
-        if ($request->isMethod('post')) {
-            $controller = $request->has('method') ? $controllerNamespace . $request->input('method') : null;
-            $params = $request->input('params');
-
-            return $this->app->call($controller, ['params' => $params]);
-        }
-
-        if ($request->isMethod('put')) {
+        if ($request->isMethod('post') || $request->isMethod('put')) {
             $controller = $request->has('method') ? $controllerNamespace . $request->input('method') : null;
             $params = $request->input('params');
 

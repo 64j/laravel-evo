@@ -38,11 +38,11 @@ class Auth extends Controller
         );
 
         if (FacadeAuth::attempt($credentials)) {
-            $request->session()->regenerate();
-
             $request->user()->setRememberToken(hash('sha256', $token = Str::random(60)));
             $request->user()->save();
-            $request->session()->put('access_token', $token);
+
+            $request->session()->regenerate();
+            $request->session()->put('_token', $token);
 
             if ($request->expectsJson()) {
                 return [
@@ -73,7 +73,6 @@ class Auth extends Controller
         FacadeAuth::logout();
 
         $request->session()->invalidate();
-
         $request->session()->regenerateToken();
 
         if ($request->expectsJson()) {

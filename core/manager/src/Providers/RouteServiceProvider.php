@@ -2,11 +2,20 @@
 
 namespace Manager\Providers;
 
+use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Route;
+use Manager\Core;
 
 class RouteServiceProvider extends ServiceProvider
 {
+    /**
+     * The application instance.
+     *
+     * @var Application|Core
+     */
+    protected $app;
+
     /**
      * Define your route model bindings, pattern filters, etc.
      *
