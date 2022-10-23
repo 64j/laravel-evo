@@ -38,7 +38,7 @@ class Authenticate extends Middleware
     {
         if (in_array(
             $request->input('method'),
-            $this->app['config']->get('auth.guards.manager.except_methods', []),
+            $this->app['config']->get('auth.guards.api.except_methods', []),
             true
         )
         ) {
