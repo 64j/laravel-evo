@@ -21,7 +21,7 @@
     <div class="flex-grow-1 overflow-auto position-relative main-content">
       <div class="multi-tabs-panel">
         <router-view v-slot="{ Component }">
-          <KeepAlive :include="keys">
+          <CustomKeepAlive :include="keys">
             <component
               :key="key"
               :is="Component"
@@ -31,7 +31,7 @@
               @replaceTab="replaceTab"
               @refreshTab="refreshTab"
             />
-          </KeepAlive>
+          </CustomKeepAlive>
         </router-view>
       </div>
       <div class="multi-tabs-panel-frames"></div>
@@ -41,9 +41,11 @@
 
 <script>
 import diff from '@/utils/diff'
+import CustomKeepAlive from '@/utils/keep-alive'
 
 export default {
   name: 'MultiTabsView',
+  components: { CustomKeepAlive },
   data () {
     return {
       tabs: this.$store.state.MultiTabs.values
